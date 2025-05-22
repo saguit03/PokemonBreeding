@@ -1,7 +1,9 @@
 from tqdm import tqdm
+
+from arcadedb import execute_sql
 from globals import *
 from utils import *
-from arcadedb import execute_sql
+
 
 def create_pokemon_relations(pokemon_data):
     for poke_id, data in tqdm(pokemon_data.items(), desc="Creando relaciones hacia los Pokémon"):
@@ -62,9 +64,11 @@ def create_pokemon_relations(pokemon_data):
                     TO 
                     (SELECT FROM Pokemon WHERE id = '{normalize_string(evo)}') 
             """)
-            
+
+
 def create_learnsets_relations(learnsets_data):
-    for poke_id, poke_info in tqdm(learnsets_data.items(), desc="Creando relaciones AprendeMovimiento para cada Pokémon"):
+    for poke_id, poke_info in tqdm(learnsets_data.items(),
+                                   desc="Creando relaciones AprendeMovimiento para cada Pokémon"):
         learnsets = poke_info.get("learnset", {})
 
         for move_id, methods in learnsets.items():
@@ -74,12 +78,16 @@ def create_learnsets_relations(learnsets_data):
                 continue
 
             metodo = None
+            peso = None
             if 'M' in all_codes:
                 metodo = "MT"
+                peso = 100
             elif 'T' in all_codes:
                 metodo = "Tutor"
+                peso = 10
             elif 'L' in all_codes:
                 metodo = "Nivel"
+                peso = 1
             else:
                 continue
 
@@ -88,7 +96,8 @@ def create_learnsets_relations(learnsets_data):
                     CREATE EDGE AprendeMovimiento 
                     FROM (SELECT FROM Pokemon WHERE id = '{poke_id}') 
                     TO (SELECT FROM Movimiento WHERE id = '{move_id}')
-                    SET metodo = '{metodo}'
+                    SET metodo = '{metodo}',
+                        peso = {peso}
                 """)
             except Exception as e:
                 print(f"No se pudo crear relación AprendeMovimiento para {poke_id} -> {move_id}: {e}")

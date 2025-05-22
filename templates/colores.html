@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon por Color</title>
+</head>
+<body>
+<nav><a href="/">Volver al menú principal</a></nav>
+
+<div>
+    <h1>Seleccionar Color</h1>
+
+    <form method="POST">
+        <label for="color">Color:</label>
+        <select name="color" id="color">
+            {% for color in colores %}
+                <option value="{{ color }}" {% if color == selected_filter %}selected{% endif %}>{{ color }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Ver Pokémon">
+    </form>
+</div>
+
+
+{% if selected_filter %}
+    <h2>Pokémon de {{ selected_filter }}</h2>
+    <ul>
+        {% for p in pokemons %}
+            <li>
+                <h3> # {{ p.num }}: {{ p.name }} </h3>
+                <p> Peso: {{ p.weightkg }} kg </p>
+                <p> Altura: {{ p.heightm }} m </p>
+                <p> Ratio Macho: {{ p.male_ratio }} </p>
+                <p> Ratio Hembra: {{ p.female_ratio }} </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

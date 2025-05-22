@@ -45,7 +45,9 @@ La función `SHORTESTPATH()` encuentra el camino más corto entre dos vértices 
 **Ejemplo:**
 
 ```sql
-SELECT SHORTESTPATH((SELECT FROM Ciudad WHERE nombre = 'Madrid'), (SELECT FROM Ciudad WHERE nombre = 'Barcelona'), 'ConectadoA')
+SELECT SHORTESTPATH((SELECT FROM Pokemon WHERE name = "Ivysaur"), (SELECT FROM Pokemon WHERE name = "Caterpie"), 'BOTH', ['PerteneceGrupoHuevo','EvolucionaEn'])
+
+SELECT SHORTESTPATH((SELECT FROM Pokemon WHERE name = "Bulbasaur"), (SELECT FROM Movimiento WHERE id="lightscreen"), 'BOTH', ['PerteneceGrupoHuevo','AprendeMovimiento'])
 ```
 
 

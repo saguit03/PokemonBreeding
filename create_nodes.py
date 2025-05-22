@@ -1,9 +1,11 @@
 import json
-from tqdm import tqdm
 import time
+from tqdm import tqdm
+
+from arcadedb import execute_sql, create_node_if_not_exists
 from globals import *
 from utils import *
-from arcadedb import execute_sql, create_node_if_not_exists
+
 
 def create_types():
     for vt in tqdm(VERTEX_TYPES, desc="Creando tipos de nodos"):
@@ -11,6 +13,7 @@ def create_types():
 
     for et in tqdm(EDGE_TYPES, desc="Creando tipos de enlaces"):
         execute_sql(f"CREATE EDGE TYPE {et} IF NOT EXISTS")
+
 
 def create_other_nodes(pokemon_data):
     tipos_unicos = set()
@@ -59,8 +62,9 @@ def create_other_nodes(pokemon_data):
     for categoria in tqdm(categorias_unicas, desc="Creando nodos de Categoria"):
         create_node_if_not_exists("Categoria", "name", categoria)
 
+
 def create_pokemon_nodes(pokemon_data):
-    for poke_id, data in  tqdm(pokemon_data.items(), desc="Creando nodos de Pokémon"):
+    for poke_id, data in tqdm(pokemon_data.items(), desc="Creando nodos de Pokémon"):
         m_ratio, f_ratio = get_gender_ratio(data)
         props = {
             "id": poke_id,
@@ -74,8 +78,9 @@ def create_pokemon_nodes(pokemon_data):
         command = f"INSERT INTO Pokemon CONTENT {json.dumps(props)}"
         execute_sql(command)
 
+
 def create_moves_nodes(moves_data):
-    for move_id, data in  tqdm(moves_data.items(), desc="Creando nodos de movimientos"):
+    for move_id, data in tqdm(moves_data.items(), desc="Creando nodos de movimientos"):
         props = {
             "id": move_id,
             "name": data.get("name"),
