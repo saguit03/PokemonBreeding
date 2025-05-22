@@ -33,7 +33,7 @@ Para que la aplicación funcione correctamente, es necesario tener versiones com
 
 ### Ejecución de ArcadeDB
 
-Es imprescindible que ArcadeDB esté en ejecución. Para ello, se debe seguir la guía de instalación de ArcadeDB y ejecutar el servidor.
+Es imprescindible que ArcadeDB esté en ejecución. Para ello, se debe seguir la guía de instalación de ArcadeDB (dentro de `./docs`) y ejecutar el servidor.
 
 ```
 cd /mnt/c/Users/estudiante/arcadedb-25.3.2/bin
