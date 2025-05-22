@@ -66,12 +66,29 @@ def create_pokemon_relations(pokemon_data):
 def create_learnsets_relations(learnsets_data):
     for poke_id, poke_info in tqdm(learnsets_data.items(), desc="Creando relaciones AprendeMovimiento para cada Pokémon"):
         learnsets = poke_info.get("learnset", {})
-        for move_id in learnsets.keys():
+
+        for move_id, methods in learnsets.items():
+            all_codes = "".join(methods)
+
+            if 'E' in all_codes or 'S' in all_codes:
+                continue
+
+            metodo = None
+            if 'M' in all_codes:
+                metodo = "MT"
+            elif 'T' in all_codes:
+                metodo = "Tutor"
+            elif 'L' in all_codes:
+                metodo = "Nivel"
+            else:
+                continue
+
             try:
                 execute_sql(f"""
-                    CREATE EDGE AprendeMovimiento FROM 
-                    (SELECT FROM Pokemon WHERE id = '{poke_id}') TO 
-                    (SELECT FROM Movimiento WHERE id = '{move_id}')
+                    CREATE EDGE AprendeMovimiento 
+                    FROM (SELECT FROM Pokemon WHERE id = '{poke_id}') 
+                    TO (SELECT FROM Movimiento WHERE id = '{move_id}')
+                    SET metodo = '{metodo}'
                 """)
             except Exception as e:
                 print(f"No se pudo crear relación AprendeMovimiento para {poke_id} -> {move_id}: {e}")

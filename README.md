@@ -25,6 +25,12 @@ Dado un Pokémon y un movimiento, cómo podría aprenderlo: Se buscan las relaci
 
 ## Fuentes
 
+### Documentación ArcadeDB
+
+- [Documentación de ArcadeDB](https://docs.arcadedb.com)
+- [Comandos ArcadeDB con SQL](https://docs.arcadedb.com/#sql)
+- [Shortest Path](https://docs.arcadedb.com/#shortest-path-function)
+
 ### Datasets
 
 - [Datos de Pokémon](https://play.pokemonshowdown.com/data/pokedex.json)
