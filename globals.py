@@ -1,8 +1,3 @@
-ARCADEDB_URL = "http://localhost:2480"
-DB_NAME = "pokemondb"
-AUTH = ("root", "123456789")
-HEADERS = {"Content-Type": "application/json"}
-
 BASE_PATH = "./data/"
 POKEMON_PATH = BASE_PATH + "pokedex.json"
 MOVES_PATH = BASE_PATH + "moves.json"

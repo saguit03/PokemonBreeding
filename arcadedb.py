@@ -1,7 +1,10 @@
 import json
 import requests
 
-from globals import *
+ARCADEDB_URL = "http://localhost:2480"
+DB_NAME = "pokemondb"
+AUTH = ("root", "123456789")
+HEADERS = {"Content-Type": "application/json"}
 
 MOSTRAR_EJECUCION = False
 
