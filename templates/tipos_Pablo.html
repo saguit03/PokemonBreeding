@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Pokédex - Filtro por Tipo</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="./static/list.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="pokeball-decoration"></div>
+    <div class="container">
+        <h1>POKÉDEX REGIONAL</h1>
+        <p class="subtitle">Sistema de clasificación por tipos Pokemon</p>
+
+        <div class="form-container">
+            <form method="POST">
+                <label for="tipo">Seleccionar tipo de Pokémon:</label>
+                <select name="tipo" id="tipo">
+                    {% for tipo in tipos %}
+                        <option value="{{ tipo }}" {% if tipo == selected_filter %}selected{% endif %}>{{ tipo }}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="submit" value="Analizar Pokemon">
+            </form>
+        </div>
+
+        {% if selected_filter %}
+            <h2>Pokémon de tipo {{ selected_filter }}</h2>
+            <ul>
+                {% for p in pokemons %}
+                    <li>
+                        <h3>
+                            <span class="pokemon-number"># {{ p.num }}</span>:
+                            <span class="pokemon-name">{{ p.name }}</span>
+                        </h3>
+                        <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ p.weightkg }} kg</span></p>
+                        <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ p.heightm }} m</span></p>
+                        <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ p.male_ratio }}</span></p>
+                        <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ p.female_ratio }}</span></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="back-button">
+            <a href="/">Volver al Centro Pokemon</a>
+        </div>
+    </div>
+</body>
+</html>

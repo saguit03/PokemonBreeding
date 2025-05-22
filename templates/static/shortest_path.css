@@ -1,0 +1,275 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.white_div {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(74, 144, 226, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 0 auto 40px;
+    max-width: 800px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.white_div::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(74, 144, 226, 0.03), transparent);
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    color: #000000;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
+    margin: 30px 0 20px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-subtitle {
+    text-align: center;
+    color: #718096;
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+nav {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(237, 242, 247, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(116, 185, 255, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+#shortest_path {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 178, 172, 0.1) 100%);
+    border: 2px solid rgba(72, 187, 120, 0.3);
+}
+
+#shortest_path p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2d3748;
+    font-weight: 500;
+}
+
+#shortest_path strong {
+    color: #2b6cb0;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#shortest_path em {
+    color: #d69e2e !important;
+    font-weight: 600;
+    font-style: normal;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+label {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+select {
+    margin-top: 8px;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    background: white;
+    font-size: 14px;
+    color: #2d3748;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+button[type="submit"] {
+    background: linear-gradient(135deg, #e24a4a 0%, #bd3535 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+button[type="submit"]::before {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(74, 144, 226, 0.4);
+    background: linear-gradient(135deg, #f25a5a 0%, #cd4646 100%);
+}
+
+.button-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.button-container a {
+    display: inline-block;
+    background: linear-gradient(135deg, #bb4848 0%, #a13838 100%);
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.3);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.button-container a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+    background: linear-gradient(135deg, #d36868 0%, #bb4848 100%);
+}
+
+.pokeball-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(180deg, #e53e3e 50%, #f7fafc 50%);
+    border-radius: 50%;
+    border: 2px solid #2d3748;
+    position: relative;
+    margin: 0 8px;
+    vertical-align: middle;
+}
+
+.pokeball-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: white;
+    border: 1px solid #2d3748;
+    border-radius: 50%;
+}
+
+.route-indicator {
+    color: #4a90e2;
+    font-size: 18px;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+/* Select2 Custom Styling */
+.select2-container--default .select2-selection--single {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    height: 45px;
+    padding: 8px 12px;
+}
+
+.select2-container--default .select2-selection--single:focus {
+    border-color: #4a90e2;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #2d3748;
+    line-height: 28px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.select2-dropdown {
+    border: 2px solid #4a90e2;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.pokemon-stats {
+    background: linear-gradient(135deg, rgba(116, 185, 255, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+    border: 1px solid rgba(116, 185, 255, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #4a5568;
+    font-weight: bolder;
+    font-family: 'Orbitron', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .white_div, nav {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 14px;
+    }
+}

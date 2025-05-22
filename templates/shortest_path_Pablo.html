@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title> Ruta entre Pokémon </title>
+    <link rel="stylesheet" href="./static/shortest_path.css">
+    <link rel="icon" href="{{ url_for('static', filename='pokeball-favicon.png') }}" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="white_div">
+    <h1>Ruta Pokémon más corta</h1><br>
+    <p class="pokemon-subtitle">Encuentra el camino más eficiente entre Pokémon</p>
+    <div class="pokemon-stats">
+        <span class="pokeball-icon"></span>
+            Sistema de navegación avanzado Pokémon
+        <span class="pokeball-icon"></span>
+    </div>
+</div>
+
+{% if path_data %}
+    <h2>Camino más corto (por pesos [DIJKSTRA]):</h2>
+    <nav id="shortest_path">
+        <p>
+            {% if (dijkstra_data|length) != 0 %}
+                {% for i in range(dijkstra_data|length) %}
+                    {% set rel = dijkstra_data[i] %}
+                    <strong>{{ rel[0] }}</strong>
+                    <span class="route-indicator">—</span>
+                    <em style="color:#d69e2e">{{ rel[1] }}</em>
+                    <span class="route-indicator">→</span>
+                    {% if i + 1 == dijkstra_data|length %}
+                        <strong>{{ rel[2] }}</strong>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No se encontró una ruta entre los Pokémon seleccionados</p>
+            {% endif %}
+        </p>
+    </nav>
+
+    <h2>Camino más corto (por saltos):</h2>
+    <nav id="shortest_path">
+        <p>
+            {% if (path_data|length) != 0 %}
+                {% for i in range(path_data|length) %}
+                    {% set rel = path_data[i] %}
+                    <strong>{{ rel[0] }}</strong>
+                    <span class="route-indicator">—</span>
+                    <em style="color:#d69e2e">{{ rel[1] }}</em>
+                    <span class="route-indicator">→</span>
+                    {% if i + 1 == path_data|length %}
+                        <strong>{{ rel[2] }}</strong>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No se encontró una ruta entre los Pokémon seleccionados</p>
+            {% endif %}
+        </p>
+    </nav>
+
+    <div class="button-container">
+        <p><a href="/shortest_path">Calcular otra ruta Pokémon</a></p>
+    </div>
+{% else %}
+<nav>
+    <form method="POST" onsubmit="return validarFormulario();">
+        <label>Pokémon origen:
+            <select name="source_id" id="source_id" required>
+                {% for char in characters %}
+                    <option value="{{ char.id }}">{{ char.name }} (ID {{ char.id }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br>
+        <label>Pokémon destino:
+            <select name="target_id" id="target_id" required>
+                {% for char in characters %}
+                    <option value="{{ char.id }}">{{ char.name }} (ID {{ char.id }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br>
+        <button type="submit">Calcular ruta</button>
+    </form>
+</nav>
+{% endif %}
+
+<div class="button-container">
+    <p><a href="/">Volver al menú principal</a></p>
+</div>
+
+<script>
+    function validarFormulario() {
+        const source = document.getElementById("source_id").value;
+        const target = document.getElementById("target_id").value;
+        if (source === target) {
+            alert("Debes seleccionar dos Pokémon distintos para calcular su ruta");
+            return false;
+        }
+        return true;
+    }
+
+    $(document).ready(function() {
+        $('#source_id').select2({
+            placeholder: "Selecciona un Pokémon origen",
+            width: '100%'
+        });
+        $('#target_id').select2({
+            placeholder: "Selecciona un Pokémon destino",
+            width: '100%'
+        });
+    });
+</script>
+</body>
+</html>
