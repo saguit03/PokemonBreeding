@@ -16,7 +16,6 @@ TRAVERSE out() FROM (SELECT FROM Persona WHERE nombre = 'Juan') WHILE $depth <= 
 ```
 
 
-
 Este comando recorre los vértices conectados a 'Juan' hasta una profundidad de 2.
 
 ---
