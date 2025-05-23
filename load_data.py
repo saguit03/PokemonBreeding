@@ -16,6 +16,8 @@ if CARGAR_TODO:
     with open(MOVES_PATH) as f:
         moves_data = clean_json(json.load(f))
 
+    pokemon_data = {k: v for k, v in pokemon_data.items() if v.get("num") > 0}
+
     create_types()
     create_other_nodes(pokemon_data)
     create_pokemon_nodes(pokemon_data)
@@ -25,4 +27,5 @@ if CARGAR_TODO:
 if CARGAR_LEARNSETS:
     with open(LEARNSETS_PATH) as f:
         learnsets_data = clean_json(json.load(f))
+
     create_learnsets_relations(learnsets_data)

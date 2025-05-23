@@ -7,7 +7,8 @@ from utils import *
 
 def create_pokemon_relations(pokemon_data):
     for poke_id, data in tqdm(pokemon_data.items(), desc="Creando relaciones hacia los Pokémon"):
-        gen_id = get_generacion_id(num=data.get("num"))
+        num = data.get("num")
+        gen_id = get_generacion_id(num)
         execute_sql(f"""
             CREATE EDGE PerteneceGeneracion FROM 
                 (SELECT FROM Pokemon WHERE id = '{poke_id}') 
@@ -74,20 +75,24 @@ def create_learnsets_relations(learnsets_data):
         for move_id, methods in learnsets.items():
             all_codes = "".join(methods)
 
-            if 'E' in all_codes or 'S' in all_codes:
+            if 'E' in all_codes:
                 continue
 
             metodo = None
             peso = None
-            if 'M' in all_codes:
-                metodo = "MT"
-                peso = 100
+
+            if 'L' in all_codes:
+                metodo = "Nivel"
+                peso = 1
             elif 'T' in all_codes:
                 metodo = "Tutor"
                 peso = 10
-            elif 'L' in all_codes:
-                metodo = "Nivel"
-                peso = 1
+            elif 'M' in all_codes:
+                metodo = "MT"
+                peso = 100
+            elif 'S' in all_codes:
+                metodo = "Evento"
+                peso = 1000
             else:
                 continue
 

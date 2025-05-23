@@ -100,12 +100,28 @@ def get_all_categorias():
     return categorias
 
 
-def get_pokemons_data(query):
-    response = execute_sql(query)
-    pokemons = []
+def get_shortest_egg_path(id_1, id_2):
+    response = execute_sql(f"""
+                           SELECT SHORTESTPATH(
+                            (SELECT FROM Pokemon WHERE id = '{id_1}'),
+                            (SELECT FROM Pokemon WHERE id='{id_2}'),
+                            'BOTH', ['PerteneceGrupoHuevo'])
+                            """)
     result = response.get("result", [])
-    for pokemon in result:
-        p = {
+    if len(result) == 0:
+        return None
+    
+    path = []
+    for v in result:
+        if v.get("@type") == "Pokemon":
+            path.append(get_pokemon_info(v))
+        elif v.get("@type") == "GrupoHuevo":
+            path.append(v.get("name"))
+
+    return path
+
+def get_pokemon_info(pokemon):
+    return {
             "id": pokemon["id"],
             "num": pokemon["num"],
             "name": pokemon["name"],
@@ -114,5 +130,11 @@ def get_pokemons_data(query):
             "male_ratio": pokemon["male_ratio"],
             "female_ratio": pokemon["female_ratio"]
         }
-        pokemons.append(p)
+
+def get_pokemons_data(query):
+    response = execute_sql(query)
+    pokemons = []
+    result = response.get("result", [])
+    for p in result:
+        pokemons.append(get_pokemon_info(p))
     return pokemons
