@@ -8,8 +8,7 @@ from utils import *
 CARGAR_TODO = False
 CARGAR_LEARNSETS = True
 
-if CARGAR_TODO:
-    # Cargar y limpiar los datos
+def cargar_todos_datos_pokemon():
     with open(POKEMON_PATH) as f:
         pokemon_data = clean_json(json.load(f))
 
@@ -24,8 +23,15 @@ if CARGAR_TODO:
     create_moves_nodes(moves_data)
     create_pokemon_relations(pokemon_data)
 
-if CARGAR_LEARNSETS:
+def cargar_learnsets():
     with open(LEARNSETS_PATH) as f:
         learnsets_data = clean_json(json.load(f))
 
     create_learnsets_relations(learnsets_data)
+
+
+if CARGAR_TODO:
+    cargar_todos_datos_pokemon()
+
+if CARGAR_LEARNSETS:
+    cargar_learnsets()

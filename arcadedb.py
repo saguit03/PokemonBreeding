@@ -3,6 +3,7 @@ import requests
 import json
 import requests
 from shortest_path import *
+from tqdm import tqdm
 
 ARCADEDB_URL = "http://localhost:2480"
 DB_NAME = "pokemondb"
@@ -114,6 +115,18 @@ def get_all_pokemons():
         })
     return pokemons
 
+def get_all_movements():
+    query = "SELECT id, name, num FROM Movimiento ORDER BY num"
+    result = execute_sql(query).get("result", [])
+    pokemons = []
+    for res in result:
+        pokemons.append({
+            "id": res["id"],
+            "num": res["num"],
+            "name": res["name"]
+        })
+    return pokemons
+
 def get_pokemon_by_name(pokename):
     query = f"""
         SELECT FROM Pokemon WHERE name ILIKE '%{pokename}%'
@@ -155,61 +168,6 @@ def get_pokemons_data(query):
         pokemons.append(get_pokemon_info(p))
     return pokemons
 
-def get_pokemon_relations(poke_id):
-    relaciones = {
-        "tipos": [],
-        "habilidades": [],
-        "grupo_huevo": [],
-        "color": None,
-        "generacion": None,
-        "categoria": None,
-        "evoluciona_en": [],
-        "evoluciona_de": []
-    }
-
-    def get_names(resp):
-        return [r["name"] for r in resp.get("result", [])]
-
-    # Relaciones múltiples
-    relaciones["tipos"] = get_names(execute_sql(f"""
-            SELECT out('DeTipo').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """))
-        
-    relaciones["habilidades"] = get_names(execute_sql(f"""
-            SELECT out('PoseeHabilidad').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """))
-
-    relaciones["grupo_huevo"] = get_names(execute_sql(f"""
-            SELECT out('PerteneceGrupoHuevo').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """))
-
-    color_resp = execute_sql(f"""
-            SELECT out('EsDeColor').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """)
-    relaciones["color"] = color_resp["result"][0]["name"] if color_resp["result"] else None
-
-    gen_resp = execute_sql(f"""
-            SELECT out('PerteneceGeneracion').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """)
-    relaciones["generacion"] = gen_resp["result"][0]["name"] if gen_resp["result"] else None
-
-    cat_resp = execute_sql(f"""
-            SELECT out('PerteneceCategoria').name as name FROM Pokemon WHERE id = '{poke_id}'
-        """)
-    relaciones["categoria"] = cat_resp["result"][0]["name"] if cat_resp["result"] else None
-
-    evol_en_resp = execute_sql(f"""
-            SELECT expand(out('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
-        """)
-    relaciones["evoluciona_en"] = [{"id": p["id"], "name": p["name"]} for p in evol_en_resp.get("result", [])]
-
-    evol_de_resp = execute_sql(f"""
-            SELECT expand(in('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
-        """)
-    relaciones["evoluciona_de"] = [{"id": p["id"], "name": p["name"]} for p in evol_de_resp.get("result", [])]
-
-    return relaciones
-
 
 def fetch_vertices_by_rid(rid_list):
     rid_str = ', '.join(rid_list)
@@ -247,6 +205,7 @@ def get_shortest_egg_path(id_1, id_2):
     """)
     processor = ShortestPathProcessor(response)
     path = fetch_vertices_by_rid(processor.get_shortest_path())
+    print(len(path), "nodos en el camino más corto")
     return path
 
 
@@ -271,3 +230,32 @@ def get_pokemon_movements(poke_id):
             "basePower": move.get("basePower", None),
         })
     return movimientos
+
+
+def get_pokemon_that_learn_movement(move_id):
+    query = f"""
+        SELECT expand(in('AprendeMovimiento')) FROM Movimiento WHERE id = '{move_id}'
+    """
+    response = execute_sql(query)
+    pokemons = []
+    result = response.get("result", [])
+    for p in result:
+        pokemons.append(get_pokemon_info(p))
+    return pokemons
+
+def cadena_cria(poke_id, move_id):
+    posibles_padres = get_pokemon_that_learn_movement(move_id)
+    if not posibles_padres:
+        return []
+
+    padres = []
+    for pp in tqdm(posibles_padres, desc="Evaluando posibles padres"):
+        path = get_shortest_egg_path(poke_id, pp["id"])
+        if path:
+            padres.append({
+                "pokemon": get_pokemon_info(pp),
+                "path": path
+            })
+    print(padres)
+    return padres
+        

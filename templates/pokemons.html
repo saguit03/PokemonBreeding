@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Pokémon por {{filtro}}</title>
+    <title>Pokémon {{filtro}}</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}"></head>
@@ -11,7 +11,7 @@
     <div class="pokeball-decoration"></div>
     
         {% if selected_filter %}
-            <h2>Pokémon de {{filtro}}: {{ selected_filter }}</h2>
+            <h2>Pokémon {{filtro}}: {{ selected_filter }}</h2>
             <ul>
                 {% for p in pokemons %}
                     <li>

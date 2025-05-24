@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, Response
 
 from arcadedb import *
+from arcade_relations import *
+from load_data import *
 
 
 def render_generaciones():
@@ -106,7 +108,14 @@ def render_pokemon_por_nombre(request):
     if not pokename:
         return Response("Nombre de Pokémon no proporcionado", status=400)
     pokemons = get_pokemon_by_name(pokename)
-    return render_template('pokemons.html', filtro="Nombre", pokemons=pokemons, selected_filter=pokename)
+    return render_template('pokemons.html', filtro="de nombre", pokemons=pokemons, selected_filter=pokename)
+
+def render_pokemon_por_movimiento(request):
+    movename = request.args.get('movename')
+    if not movename:
+        return Response("Movimiento Pokémon no proporcionado", status=400)
+    pokemons = get_pokemon_that_learn_movement(movename)
+    return render_template('pokemons.html', filtro="que aprenden el movimiento", pokemons=pokemons, selected_filter=movename)
 
 def render_pokemon_por_id(id):
     pokemon = get_pokemon_by_id(id)
@@ -116,3 +125,25 @@ def render_pokemon_por_id(id):
     movimientos = get_pokemon_movements(id)
     return render_template('pokeinfo.html', pokemon=pokemon, relaciones=relaciones, movimientos=movimientos)
     
+def render_shortest_path_form():
+    pokemons = get_all_pokemons()
+    return render_template('shortest_path.html', pokemons=pokemons)
+
+
+def render_shortest_path_data(request):
+    origen = request.form.get('source_id')
+    destino = request.form.get('target_id')
+    path_data = get_shortest_egg_path(origen, destino)
+    return render_template('shortest_path.html', path_data=path_data, origen=origen, destino=destino)
+
+
+def render_cadena_form():
+    pokemons = get_all_pokemons()
+    return render_template('shortest_path.html', pokemons=pokemons)
+
+
+def render_cadena_data(request):
+    origen = request.form.get('source_id')
+    destino = request.form.get('target_id')
+    path_data = get_shortest_egg_path(origen, destino)
+    return render_template('shortest_path.html', path_data=path_data, origen=origen, destino=destino)

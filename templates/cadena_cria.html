@@ -12,18 +12,17 @@
 </head>
 <body>
 <div class="white_div">
-    <h1>Ayuda para la crianza Pokémon</h1><br>
-    <p class="pokemon-subtitle">¿Mis Pokémon pueden criar entre sí?</p>
+    <h1>Ayuda para el aprendizaje Pokémon</h1><br>
+    <p class="pokemon-subtitle">¿Cómo puedo lograr que mi Pokémon aprenda ese movimiento?</p>
     <div class="pokemon-stats">
         <span class="pokeball-icon"></span>
-            Sistema de crianza Pokémon
+            Cadena de crianza Pokémon
         <span class="pokeball-icon"></span>
     </div>
 </div>
 
-{% if path_data %}
-    <h2>Ruta de crianza entre {{origen}} y {{destino}}:</h2>
-    <nav id="shortest_path">
+<h2> Posibles padres de {{origen}} para aprender el Movimiento {{destino}}</h2>
+{% for path_data in posible_parents %}
         <ul>
             {% for data in path_data %}
             <li>
@@ -46,9 +45,9 @@
                         </li>
             {% endfor %}
         </ul>
-    </nav>
+{% endfor %}
     <div class="button-container">
-        <p><a href="/shortest_path">Calcular otra ruta Pokémon</a></p>
+        <p><a href="/cadena_cria">Ver más cadenas de cría</a></p>
     </div>
 {% else %}
 <nav>
@@ -56,20 +55,20 @@
         <label>Pokémon origen:
             <select name="source_id" id="source_id" required>
                 {% for poke in pokemons %}
-                    <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
+                    <option value="{{ poke.id }}">{{ poke.name }}</option>
                 {% endfor %}
             </select>
         </label>
         <br>
-        <label>Pokémon destino:
+        <label>Movimiento a aprender:
             <select name="target_id" id="target_id" required>
-                {% for poke in pokemons %}
-                    <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
+                {% for move in movements %}
+                    <option value="{{ move.id }}">{{ move.name }}</option>
                 {% endfor %}
             </select>
         </label>
         <br>
-        <button type="submit">Calcular ruta</button>
+        <button type="submit">Buscar cadena de cría</button>
     </form>
 </nav>
 {% endif %}

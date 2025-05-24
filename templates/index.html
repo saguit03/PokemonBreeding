@@ -12,13 +12,25 @@
 <nav>
     <h2>Menú principal</h2>
     <div class="container">
-        <h1>Buscador por nombre de Pokémon</h1>
-        <div class="form-container">
-            <form method="GET" action="/pokemons">
-                <label for="pokename">Nombre:</label>
-                <input type="text" id="pokename" name="pokename">
-                <input type="submit" value="Buscar">
-            </form>
+        <div>
+            <div class="pokeball-decoration"><h3></h3>Buscador por nombre de Pokémon</h3></div>
+            <div class="form-container">
+                <form method="GET" action="/pokemons">
+                    <label for="pokename">Nombre:</label>
+                    <input type="text" id="pokename" name="pokename">
+                    <input type="submit" value="Buscar">
+                </form>
+            </div>
+        </div>
+        <div>
+            <div class="pokeball-decoration"><h3></h3>Buscador por movimiento Pokémon</h3></div>
+            <div class="form-container">
+                <form method="GET" action="/moves">
+                    <label for="movename">Nombre:</label>
+                    <input type="text" id="movename" name="movename">
+                    <input type="submit" value="Buscar">
+                </form>
+            </div>
         </div>
     </div>
     <div>
