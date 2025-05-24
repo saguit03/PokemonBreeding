@@ -1,5 +1,8 @@
 import json
 import requests
+import json
+import requests
+from claude import *
 
 ARCADEDB_URL = "http://localhost:2480"
 DB_NAME = "pokemondb"
@@ -100,9 +103,16 @@ def get_all_categorias():
     return categorias
 
 def get_all_pokemons():
-    query = "SELECT id, name FROM Pokemon ORDER BY num"
+    query = "SELECT id, name, num FROM Pokemon ORDER BY num"
     result = execute_sql(query).get("result", [])
-    return result
+    pokemons = []
+    for res in result:
+        pokemons.append({
+            "id": res["id"],
+            "num": res["num"],
+            "name": res["name"]
+        })
+    return pokemons
 
 def get_pokemon_by_name(pokename):
     query = f"""
@@ -125,30 +135,6 @@ def get_pokemon_by_id(poke_id):
     for p in result:
         pokemons.append(get_pokemon_info(p))
     return pokemons[0]
-
-def get_shortest_egg_path(id_1, id_2):
-    response = execute_sql(f"""
-        SELECT SHORTESTPATH(
-            (SELECT FROM Pokemon WHERE id = '{id_1}'),
-            (SELECT FROM Pokemon WHERE id = '{id_2}'),
-            'BOTH', ['PerteneceGrupoHuevo']
-        )
-    """)
-    result = response.get("result", [])
-    path_data = []
-
-    for record in result:
-        if "SHORTESTPATH" in record:
-            path = record["SHORTESTPATH"]
-            if path:
-                path_data = parse_shortest_path(response)
-                break
-    if not path_data:
-        print(f"No se encontró un camino entre {id_1} y {id_2} usando 'PerteneceGrupoHuevo'.")
-        return []
-
-    return path_data
-
 
 def get_pokemon_info(pokemon):
     return {
@@ -224,3 +210,42 @@ def get_pokemon_relations(poke_id):
     relaciones["evoluciona_de"] = [{"id": p["id"], "name": p["name"]} for p in evol_de_resp.get("result", [])]
 
     return relaciones
+
+
+def fetch_vertices_by_rid(rid_list):
+    rid_str = ', '.join(rid_list)
+    response = execute_sql(f"SELECT FROM [{rid_str}]")
+    
+    path = []
+    for record in response.get("result", []):
+        if record["@type"] == "Pokemon":
+            if(MOSTRAR_EJECUCION): print(f"ID: {record['id']}, Name: {record['name']}, Num: {record['num']}")
+            path.append({
+            "id": record["id"],
+            "num": record["num"],
+            "name": record["name"],
+            "weightkg": record["weightkg"],
+            "heightm": record["heightm"],
+            "male_ratio": record["male_ratio"],
+            "female_ratio": record["female_ratio"],
+            "node_type": record["@type"]
+        })
+        elif record["@type"] == "GrupoHuevo":
+            if(MOSTRAR_EJECUCION): print(f"Grupo Huevo: {record['name']}")
+            path.append({
+                "name": record["name"],
+                "node_type": record["@type"]
+            })
+    return path
+
+def get_shortest_egg_path(id_1, id_2):
+    response = execute_sql(f"""
+        SELECT SHORTESTPATH(
+            (SELECT FROM Pokemon WHERE id = '{id_1}'),
+            (SELECT FROM Pokemon WHERE id = '{id_2}'),
+            'BOTH', ['PerteneceGrupoHuevo']
+        )
+    """)
+    processor = ShortestPathProcessor(response)
+    path = fetch_vertices_by_rid(processor.get_shortest_path())
+    return path

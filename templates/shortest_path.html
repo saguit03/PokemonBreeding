@@ -12,56 +12,41 @@
 </head>
 <body>
 <div class="white_div">
-    <h1>Ruta Pokémon más corta</h1><br>
-    <p class="pokemon-subtitle">Encuentra el camino más eficiente entre Pokémon</p>
+    <h1>Ayuda para la crianza Pokémon</h1><br>
+    <p class="pokemon-subtitle">¿Mis Pokémon pueden criar entre sí?</p>
     <div class="pokemon-stats">
         <span class="pokeball-icon"></span>
-            Sistema de navegación avanzado Pokémon
+            Sistema de crianza Pokémon
         <span class="pokeball-icon"></span>
     </div>
 </div>
 
 {% if path_data %}
-    <h2>Camino más corto (por pesos [DIJKSTRA]):</h2>
+    <h2>Ruta de crianza entre {{origen}} y {{destino}}:</h2>
     <nav id="shortest_path">
-        <p>
-            {% if (dijkstra_data|length) != 0 %}
-                {% for i in range(dijkstra_data|length) %}
-                    {% set rel = dijkstra_data[i] %}
-                    <strong>{{ rel[0] }}</strong>
-                    <span class="route-indicator">—</span>
-                    <em style="color:#d69e2e">{{ rel[1] }}</em>
-                    <span class="route-indicator">→</span>
-                    {% if i + 1 == dijkstra_data|length %}
-                        <strong>{{ rel[2] }}</strong>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <p>No se encontró una ruta entre los Pokémon seleccionados</p>
-            {% endif %}
-        </p>
+        <ul>
+            {% for data in path_data %}
+            <li>
+                {% if data.node_type == "Pokemon" %}
+                    <h3>
+                        <a href="/pokemons/{{ data.id }}">
+                        <span class="pokemon-number"># {{ data.num }}</span>:
+                        <span class="pokemon-name">{{ data.name }}</span>
+                        </a>
+                    </h3>
+                            <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ data.weightkg }} kg</span></p>
+                            <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ data.heightm }} m</span></p>
+                            <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ data.male_ratio }}</span></p>
+                            <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ data.female_ratio }}</span></p>
+                            {% else %}
+                            <h3>Grupo Huevo:
+                                <span class="pokemon-name">{{ data.name }}</span>
+                            </h3>
+                            {% endif %}
+                        </li>
+            {% endfor %}
+        </ul>
     </nav>
-
-    <h2>Camino más corto (por saltos):</h2>
-    <nav id="shortest_path">
-        <p>
-            {% if (path_data|length) != 0 %}
-                {% for i in range(path_data|length) %}
-                    {% set rel = path_data[i] %}
-                    <strong>{{ rel[0] }}</strong>
-                    <span class="route-indicator">—</span>
-                    <em style="color:#d69e2e">{{ rel[1] }}</em>
-                    <span class="route-indicator">→</span>
-                    {% if i + 1 == path_data|length %}
-                        <strong>{{ rel[2] }}</strong>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <p>No se encontró una ruta entre los Pokémon seleccionados</p>
-            {% endif %}
-        </p>
-    </nav>
-
     <div class="button-container">
         <p><a href="/shortest_path">Calcular otra ruta Pokémon</a></p>
     </div>

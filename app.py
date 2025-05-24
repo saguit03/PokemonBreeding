@@ -22,12 +22,16 @@ def pokeinfo_name():
 
 # Endpoints Flask
 @app.route('/shortest_path', methods=['GET'])
-def shortest_path_form():
-    return render_template('buscar_ruta.html')
+def shortest_path():
+    pokemons = get_all_pokemons()
+    return render_template('shortest_path.html', characters=pokemons)
 
-@app.route('/shortest_path/result', methods=['GET'])
-def resultados_ruta():
-    return render_shortest_path(request)
+@app.route('/shortest_path', methods=['POST'])
+def shortest_path_res():
+    origen = request.form.get('source_id')
+    destino = request.form.get('target_id')
+    path_data = get_shortest_egg_path(origen, destino)
+    return render_template('shortest_path.html', path_data=path_data, origen=origen, destino=destino)
 
 @app.route("/generaciones", methods=["GET"])
 def generaciones():
