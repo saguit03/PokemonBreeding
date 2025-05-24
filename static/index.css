@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    padding: 25px;
+    background: linear-gradient(135deg, #f4f4f4 0%, #f4f4f4 100%);
+    color: #2c3e50;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #000000;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    font-style: italic;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.toggle-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.toggle-btn {
+    background: linear-gradient(45deg, #502c2c 0%, #db3434 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    text-transform: uppercase;
+}
+
+.toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+nav h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin: 12px 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+li:hover {
+    transform: translateX(10px);
+}
+
+a {
+    display: block;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #db3434 0%, #b92929 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+}
+
+a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+a:hover::before {
+    left: 100%;
+}
+
+a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+
+/* Pokemon-themed decorative elements */
+.pokeball {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(180deg, #ff6b6b 50%, white 50%);
+    border-radius: 50%;
+    border: 3px solid #2c3e50;
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.pokeball::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: white;
+    border: 2px solid #2c3e50;
+    border-radius: 50%;
+}
+
+.pokemon-icons {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 12px;
+    color: #7f8c8d;
+}
