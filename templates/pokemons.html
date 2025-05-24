@@ -9,31 +9,13 @@
 
 <body>
     <div class="pokeball-decoration"></div>
-    <div class="container">
-        <h1>Pokémon por {{filtro}}</h1>
-        
-        {% if opciones %}
-        <p class="subtitle">Selecciona un {{filtro}} para ver los Pokémon relacionados con {{filtro}}</p>
-        <div class="form-container">
-            <form method="POST">
-                <label for="filtro">Seleccionar {{filtro}} de Pokémon:</label>
-                <select name="filtro" id="filtro">
-                    {% for v in opciones %}
-                        <option value="{{ v }}" {% if v == selected_filter %}selected{% endif %}>{{ v }}</option>
-                    {% endfor %}
-                </select>
-
-                <input type="submit" value="Analizar Pokémon">
-            </form>
-        </div>
-        {% endif %}
-
+    
         {% if selected_filter %}
             <h2>Pokémon de {{filtro}}: {{ selected_filter }}</h2>
             <ul>
                 {% for p in pokemons %}
                     <li>
-                <h3>
+                        <h3>
                     <a href="/pokemons/{{ p.id }}">
                     <span class="pokemon-number"># {{ p.num }}</span>:
                     <span class="pokemon-name">{{ p.name }}</span>

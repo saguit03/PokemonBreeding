@@ -3,6 +3,7 @@ from flask import request
 
 from arcadedb import *
 from controller import *
+from shortest_path import render_shortest_path
 
 app = Flask(__name__)
 
@@ -11,6 +12,22 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/pokemons/<id>', methods=['GET'])
+def pokeinfo_id(id):
+    return render_pokemon_por_id(id)
+
+@app.route('/pokemons', methods=['GET'])
+def pokeinfo_name():
+    return render_pokemon_por_nombre(request)
+
+# Endpoints Flask
+@app.route('/shortest_path', methods=['GET'])
+def shortest_path_form():
+    return render_template('buscar_ruta.html')
+
+@app.route('/shortest_path/result', methods=['GET'])
+def resultados_ruta():
+    return render_shortest_path(request)
 
 @app.route("/generaciones", methods=["GET"])
 def generaciones():

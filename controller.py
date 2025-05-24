@@ -13,6 +13,7 @@ def render_pokemon_de_generacion(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('PerteneceGeneracion')) FROM Generacion WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Generación",opciones=generaciones, selected_filter=selected_filter,
@@ -29,6 +30,7 @@ def render_pokemon_de_tipo(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('DeTipo')) FROM Tipo WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Tipo",opciones=tipos, selected_filter=selected_filter, pokemons=pokemons)
@@ -44,6 +46,7 @@ def render_pokemon_de_habilidad(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('PoseeHabilidad')) FROM Habilidad WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Habilidad",opciones=habilidades, selected_filter=selected_filter,
@@ -60,6 +63,7 @@ def render_pokemon_de_grupo_huevo(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('PerteneceGrupoHuevo')) FROM GrupoHuevo WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Grupo Huevo",opciones=grupos_huevo, selected_filter=selected_filter, pokemons=pokemons)
@@ -75,6 +79,7 @@ def render_pokemon_de_color(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('EsDeColor')) FROM Color WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Color",opciones=colores, selected_filter=selected_filter, pokemons=pokemons)
@@ -90,6 +95,23 @@ def render_pokemon_de_categoria(request):
     selected_filter = request.form.get("filtro")
     query = f"""
         SELECT expand(in('PerteneceCategoria')) FROM Categoria WHERE name = '{selected_filter}'
+        ORDER BY num
     """
     pokemons = get_pokemons_data(query)
     return render_template("pokefiltro.html", filtro="Categoría",opciones=categorias, selected_filter=selected_filter, pokemons=pokemons)
+
+
+def render_pokemon_por_nombre(request):
+    pokename = request.args.get('pokename').strip()
+    if not pokename:
+        return Response("Nombre de Pokémon no proporcionado", status=400)
+    pokemons = get_pokemon_by_name(pokename)
+    return render_template('pokemons.html', filtro="Nombre", pokemons=pokemons, selected_filter=pokename)
+
+def render_pokemon_por_id(id):
+    pokemon = get_pokemon_by_id(id)
+    if not pokemon:
+        return Response("Pokémon no encontrado", status=404)
+    relaciones = get_pokemon_relations(id)
+    return render_template('pokeinfo.html', pokemon=pokemon, relaciones=relaciones)
+    

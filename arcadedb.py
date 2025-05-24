@@ -99,26 +99,56 @@ def get_all_categorias():
         categorias.append(res["name"])
     return categorias
 
+def get_all_pokemons():
+    query = "SELECT id, name FROM Pokemon ORDER BY num"
+    result = execute_sql(query).get("result", [])
+    return result
+
+def get_pokemon_by_name(pokename):
+    query = f"""
+        SELECT FROM Pokemon WHERE name ILIKE '%{pokename}%'
+        """
+    response = execute_sql(query)
+    result = response.get("result", [])
+    pokemons = []
+    for p in result:
+        pokemons.append(get_pokemon_info(p))
+    return pokemons    
+
+def get_pokemon_by_id(poke_id):
+    query = f"""
+        SELECT FROM Pokemon WHERE id = '{poke_id}'
+        """
+    response = execute_sql(query)
+    result = response.get("result", [])
+    pokemons = []
+    for p in result:
+        pokemons.append(get_pokemon_info(p))
+    return pokemons[0]
 
 def get_shortest_egg_path(id_1, id_2):
     response = execute_sql(f"""
-                           SELECT SHORTESTPATH(
-                            (SELECT FROM Pokemon WHERE id = '{id_1}'),
-                            (SELECT FROM Pokemon WHERE id='{id_2}'),
-                            'BOTH', ['PerteneceGrupoHuevo'])
-                            """)
+        SELECT SHORTESTPATH(
+            (SELECT FROM Pokemon WHERE id = '{id_1}'),
+            (SELECT FROM Pokemon WHERE id = '{id_2}'),
+            'BOTH', ['PerteneceGrupoHuevo']
+        )
+    """)
     result = response.get("result", [])
-    if len(result) == 0:
-        return None
-    
-    path = []
-    for v in result:
-        if v.get("@type") == "Pokemon":
-            path.append(get_pokemon_info(v))
-        elif v.get("@type") == "GrupoHuevo":
-            path.append(v.get("name"))
+    path_data = []
 
-    return path
+    for record in result:
+        if "SHORTESTPATH" in record:
+            path = record["SHORTESTPATH"]
+            if path:
+                path_data = parse_shortest_path(response)
+                break
+    if not path_data:
+        print(f"No se encontró un camino entre {id_1} y {id_2} usando 'PerteneceGrupoHuevo'.")
+        return []
+
+    return path_data
+
 
 def get_pokemon_info(pokemon):
     return {
@@ -138,3 +168,59 @@ def get_pokemons_data(query):
     for p in result:
         pokemons.append(get_pokemon_info(p))
     return pokemons
+
+def get_pokemon_relations(poke_id):
+    relaciones = {
+        "tipos": [],
+        "habilidades": [],
+        "grupo_huevo": [],
+        "color": None,
+        "generacion": None,
+        "categoria": None,
+        "evoluciona_en": [],
+        "evoluciona_de": []
+    }
+
+    def get_names(resp):
+        return [r["name"] for r in resp.get("result", [])]
+
+    # Relaciones múltiples
+    relaciones["tipos"] = get_names(execute_sql(f"""
+            SELECT out('DeTipo').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+        
+    relaciones["habilidades"] = get_names(execute_sql(f"""
+            SELECT out('PoseeHabilidad').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+
+    relaciones["grupo_huevo"] = get_names(execute_sql(f"""
+            SELECT out('PerteneceGrupoHuevo').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+
+    # Relaciones simples (strings)
+    color_resp = execute_sql(f"""
+            SELECT out('EsDeColor').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["color"] = color_resp["result"][0]["name"] if color_resp["result"] else None
+
+    gen_resp = execute_sql(f"""
+            SELECT out('PerteneceGeneracion').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["generacion"] = gen_resp["result"][0]["name"] if gen_resp["result"] else None
+
+    cat_resp = execute_sql(f"""
+            SELECT out('PerteneceCategoria').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["categoria"] = cat_resp["result"][0]["name"] if cat_resp["result"] else None
+
+    evol_en_resp = execute_sql(f"""
+            SELECT expand(out('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["evoluciona_en"] = [{"id": p["id"], "name": p["name"]} for p in evol_en_resp.get("result", [])]
+
+    evol_de_resp = execute_sql(f"""
+            SELECT expand(in('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["evoluciona_de"] = [{"id": p["id"], "name": p["name"]} for p in evol_de_resp.get("result", [])]
+
+    return relaciones

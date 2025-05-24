@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Información detallada</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <h1>Información de Pokémon</h1>
+    
+    {% if pokemon %}
+                <h2>
+                    <a href="/pokemons/{{ pokemon.id }}">
+                    <span class="pokemon-number"># {{ pokemon.num }}</span>:
+                    <span class="pokemon-name">{{ pokemon.name }}</span>
+                    </a>
+                </h2>
+                <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ pokemon.weightkg }} kg</span></p>
+                <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ pokemon.heightm }} m</span></p>
+                <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ pokemon.male_ratio }}</span></p>
+                <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ pokemon.female_ratio }}</span></p>
+                <p><span class="stat-label">Tipo(s):</span> <span class="stat-value"> {{ relaciones.tipos | join(", ") }}</span></p>
+                <p><span class="stat-label">Habilidad(es):</span> <span class="stat-value"> {{ relaciones.habilidades | join(", ") }}</span></p>
+                <p><span class="stat-label">Grupo Huevo:</span> <span class="stat-value"> {{ relaciones.grupo_huevo | join(", ") }}</span></p>
+                <p><span class="stat-label">Color:</span> <span class="stat-value"> {{ relaciones.color }}</span></p>
+                <p><span class="stat-label">Generación:</span> <span class="stat-value"> {{ relaciones.generacion }}</span></p>
+                <p><span class="stat-label">Categoría:</span> <span class="stat-value"> {{ relaciones.categoria }}</span></p>
+
+                {% if relaciones.evoluciona_de %}
+                    <h3>Evoluciona de:</h3>
+                    <ul>
+                        {% for evo in relaciones.evoluciona_de %}
+                            <li>{{ evo.name }} (<a href="/pokemons/{{ evo.id }}"> {{ evo.id }} </a>)</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if relaciones.evoluciona_en %}
+                    <h3>Evoluciona en:</h3>
+                    <ul>
+                        {% for evo in relaciones.evoluciona_en %}
+                            <li>{{ evo.name }} (<a href="/pokemons/{{ evo.id }}"> {{ evo.id }} </a>)</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+    {% else %}
+        <p>No se encontraron Pokémon.</p>
+    {% endif %}
+
+    <div class="back-button">
+        <a href="/">Volver al Centro Pokémon</a>
+    </div>
+</body>
+</html>
