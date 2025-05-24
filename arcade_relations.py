@@ -106,3 +106,59 @@ def create_learnsets_relations(learnsets_data):
                 """)
             except Exception as e:
                 print(f"No se pudo crear relación AprendeMovimiento para {poke_id} -> {move_id}: {e}")
+
+
+def get_pokemon_relations(poke_id):
+    relaciones = {
+        "tipos": [],
+        "habilidades": [],
+        "grupo_huevo": [],
+        "color": None,
+        "generacion": None,
+        "categoria": None,
+        "evoluciona_en": [],
+        "evoluciona_de": []
+    }
+
+    def get_names(resp):
+        return [r["name"] for r in resp.get("result", [])]
+
+    # Relaciones múltiples
+    relaciones["tipos"] = get_names(execute_sql(f"""
+            SELECT out('DeTipo').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+        
+    relaciones["habilidades"] = get_names(execute_sql(f"""
+            SELECT out('PoseeHabilidad').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+
+    relaciones["grupo_huevo"] = get_names(execute_sql(f"""
+            SELECT out('PerteneceGrupoHuevo').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """))
+
+    color_resp = execute_sql(f"""
+            SELECT out('EsDeColor').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["color"] = color_resp["result"][0]["name"] if color_resp["result"] else None
+
+    gen_resp = execute_sql(f"""
+            SELECT out('PerteneceGeneracion').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["generacion"] = gen_resp["result"][0]["name"] if gen_resp["result"] else None
+
+    cat_resp = execute_sql(f"""
+            SELECT out('PerteneceCategoria').name as name FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["categoria"] = cat_resp["result"][0]["name"] if cat_resp["result"] else None
+
+    evol_en_resp = execute_sql(f"""
+            SELECT expand(out('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["evoluciona_en"] = [{"id": p["id"], "name": p["name"]} for p in evol_en_resp.get("result", [])]
+
+    evol_de_resp = execute_sql(f"""
+            SELECT expand(in('EvolucionaEn')) FROM Pokemon WHERE id = '{poke_id}'
+        """)
+    relaciones["evoluciona_de"] = [{"id": p["id"], "name": p["name"]} for p in evol_de_resp.get("result", [])]
+
+    return relaciones

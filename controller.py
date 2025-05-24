@@ -113,5 +113,6 @@ def render_pokemon_por_id(id):
     if not pokemon:
         return Response("Pokémon no encontrado", status=404)
     relaciones = get_pokemon_relations(id)
-    return render_template('pokeinfo.html', pokemon=pokemon, relaciones=relaciones)
+    movimientos = get_pokemon_movements(id)
+    return render_template('pokeinfo.html', pokemon=pokemon, relaciones=relaciones, movimientos=movimientos)
     

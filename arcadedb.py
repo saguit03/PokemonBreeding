@@ -2,7 +2,7 @@ import json
 import requests
 import json
 import requests
-from claude import *
+from shortest_path import *
 
 ARCADEDB_URL = "http://localhost:2480"
 DB_NAME = "pokemondb"
@@ -183,7 +183,6 @@ def get_pokemon_relations(poke_id):
             SELECT out('PerteneceGrupoHuevo').name as name FROM Pokemon WHERE id = '{poke_id}'
         """))
 
-    # Relaciones simples (strings)
     color_resp = execute_sql(f"""
             SELECT out('EsDeColor').name as name FROM Pokemon WHERE id = '{poke_id}'
         """)
@@ -249,3 +248,26 @@ def get_shortest_egg_path(id_1, id_2):
     processor = ShortestPathProcessor(response)
     path = fetch_vertices_by_rid(processor.get_shortest_path())
     return path
+
+
+def get_pokemon_movements(poke_id):
+    query = f"""
+        SELECT FROM Movimiento 
+        WHERE id IN (
+        SELECT id FROM (
+        SELECT expand(out('AprendeMovimiento')) FROM Pokemon WHERE id = '{poke_id}'
+        ))
+        """
+    response = execute_sql(query)
+    movimientos = []
+    result = response.get("result", [])
+    for move in result:
+        movimientos.append({
+            "id": move["id"],
+            "name": move["name"],
+            "num": move["num"],
+            "type": move["type"],
+            "description": move.get("description", ""),
+            "basePower": move.get("basePower", None),
+        })
+    return movimientos

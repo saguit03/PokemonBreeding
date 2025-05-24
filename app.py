@@ -3,7 +3,6 @@ from flask import request
 
 from arcadedb import *
 from controller import *
-from shortest_path import render_shortest_path
 
 app = Flask(__name__)
 

@@ -1,7 +1,7 @@
 import json
 
-from create_nodes import *
-from create_relations import *
+from arcade_nodes import *
+from arcade_relations import *
 from globals import *
 from utils import *
 

@@ -46,6 +46,23 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
+
+
+                {% if movimientos %}
+                    <h3>Movimientos:</h3>
+                    <ul>
+                        {% for movimiento in movimientos %}
+                            <li>
+                                <h4> {{ movimiento.name }} (# {{movimiento.num}}) </h4> 
+                                <ul>
+                                    <li>Tipo: {{ movimiento.type }}</li>
+                                    <li>Potencia Base: {{ movimiento.basePower if movimiento.basePower is not none else "N/A" }}</li>
+                                    <li>Descripción: {{ movimiento.description if movimiento.description else "No disponible" }}</li>
+                                    <li><a href="/movimientos/{{ movimiento.id }}">Ver detalles</a></li>
+                                </ul>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
     {% else %}
         <p>No se encontraron Pokémon.</p>
     {% endif %}
