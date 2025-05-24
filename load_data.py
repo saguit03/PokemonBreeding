@@ -29,7 +29,6 @@ def cargar_learnsets():
 
     create_learnsets_relations(learnsets_data)
 
-
 if CARGAR_TODO:
     cargar_todos_datos_pokemon()
 

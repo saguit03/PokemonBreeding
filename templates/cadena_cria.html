@@ -21,31 +21,40 @@
     </div>
 </div>
 
-<h2> Posibles padres de {{origen}} para aprender el Movimiento {{destino}}</h2>
-{% for path_data in posible_parents %}
+
+
+{% if posibles_padres %}
+<h2> Posibles padres de {{origen}} para aprender el Movimiento {{destino}} ({{ posibles_padres | length}})</h2>
+{% for padre in posibles_padres %}
+    <h3 class="padre-title">Padre posible: 
+        <a href="/pokemons/{{ padre.pokemon.id }}">
+            <span class="pokemon-number"># {{ padre.pokemon.num }}</span>:
+            <span class="pokemon-name">{{ padre.pokemon.name }}</span>
+        </a>
+    </h3>
+    <div>
+
         <ul>
-            {% for data in path_data %}
+            {% for data in padre.path %}
             <li>
                 {% if data.node_type == "Pokemon" %}
-                    <h3>
-                        <a href="/pokemons/{{ data.id }}">
+                <h4>
+                    <a href="/pokemons/{{ data.id }}">
                         <span class="pokemon-number"># {{ data.num }}</span>:
                         <span class="pokemon-name">{{ data.name }}</span>
-                        </a>
-                    </h3>
-                            <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ data.weightkg }} kg</span></p>
-                            <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ data.heightm }} m</span></p>
-                            <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ data.male_ratio }}</span></p>
-                            <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ data.female_ratio }}</span></p>
-                            {% else %}
-                            <h3>Grupo Huevo:
-                                <span class="pokemon-name">{{ data.name }}</span>
-                            </h3>
-                            {% endif %}
-                        </li>
+                    </a>
+                </h4>
+                {% else %}
+                <h4>Grupo Huevo:
+                    <span class="pokemon-name">{{ data.name }}</span>
+                </h4>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
+    </div>
 {% endfor %}
+
     <div class="button-container">
         <p><a href="/cadena_cria">Ver más cadenas de cría</a></p>
     </div>

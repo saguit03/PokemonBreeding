@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, Response
 
 from arcadedb import *
 from arcade_relations import *
-from load_data import *
-
 
 def render_generaciones():
     generaciones = get_all_generaciones()
@@ -139,11 +137,12 @@ def render_shortest_path_data(request):
 
 def render_cadena_form():
     pokemons = get_all_pokemons()
-    return render_template('shortest_path.html', pokemons=pokemons)
+    movements = get_all_movements()
+    return render_template('cadena_cria.html', pokemons=pokemons, movements=movements)
 
 
 def render_cadena_data(request):
     origen = request.form.get('source_id')
     destino = request.form.get('target_id')
-    path_data = get_shortest_egg_path(origen, destino)
-    return render_template('shortest_path.html', path_data=path_data, origen=origen, destino=destino)
+    posibles_padres = cadena_cria(poke_id=origen, move_id=destino)
+    return render_template('cadena_cria.html', posibles_padres=posibles_padres, origen=origen, destino=destino)

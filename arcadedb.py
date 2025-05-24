@@ -169,7 +169,7 @@ def get_pokemons_data(query):
     return pokemons
 
 
-def fetch_vertices_by_rid(rid_list):
+def fetch_vertices_by_rid(rid_list, simplified=False):
     rid_str = ', '.join(rid_list)
     response = execute_sql(f"SELECT FROM [{rid_str}]")
     
@@ -177,16 +177,24 @@ def fetch_vertices_by_rid(rid_list):
     for record in response.get("result", []):
         if record["@type"] == "Pokemon":
             if(MOSTRAR_EJECUCION): print(f"ID: {record['id']}, Name: {record['name']}, Num: {record['num']}")
-            path.append({
-            "id": record["id"],
-            "num": record["num"],
-            "name": record["name"],
-            "weightkg": record["weightkg"],
-            "heightm": record["heightm"],
-            "male_ratio": record["male_ratio"],
-            "female_ratio": record["female_ratio"],
-            "node_type": record["@type"]
-        })
+            if simplified:
+                path.append({
+                    "id": record["id"],
+                    "num": record["num"],
+                    "name": record["name"],
+                    "node_type": record["@type"]
+                })
+            else:
+                path.append({
+                    "id": record["id"],
+                    "num": record["num"],
+                    "name": record["name"],
+                    "weightkg": record["weightkg"],
+                    "heightm": record["heightm"],
+                    "male_ratio": record["male_ratio"],
+                    "female_ratio": record["female_ratio"],
+                    "node_type": record["@type"]
+                })
         elif record["@type"] == "GrupoHuevo":
             if(MOSTRAR_EJECUCION): print(f"Grupo Huevo: {record['name']}")
             path.append({
@@ -195,7 +203,7 @@ def fetch_vertices_by_rid(rid_list):
             })
     return path
 
-def get_shortest_egg_path(id_1, id_2):
+def get_shortest_egg_path(id_1, id_2, simplified=False):
     response = execute_sql(f"""
         SELECT SHORTESTPATH(
             (SELECT FROM Pokemon WHERE id = '{id_1}'),
@@ -204,8 +212,8 @@ def get_shortest_egg_path(id_1, id_2):
         )
     """)
     processor = ShortestPathProcessor(response)
-    path = fetch_vertices_by_rid(processor.get_shortest_path())
-    print(len(path), "nodos en el camino más corto")
+    path = fetch_vertices_by_rid(processor.get_shortest_path(), simplified=simplified)
+    if(MOSTRAR_EJECUCION): print(len(path), "nodos en el camino más corto")
     return path
 
 
@@ -250,12 +258,23 @@ def cadena_cria(poke_id, move_id):
 
     padres = []
     for pp in tqdm(posibles_padres, desc="Evaluando posibles padres"):
-        path = get_shortest_egg_path(poke_id, pp["id"])
-        if path:
-            padres.append({
-                "pokemon": get_pokemon_info(pp),
-                "path": path
-            })
-    print(padres)
+        try:
+            path = get_shortest_egg_path(poke_id, pp["id"], simplified=True)
+            if path:
+                padres.append({
+                    "pokemon": get_pokemon_info(pp),
+                    "path": path
+                })
+        except Exception as e:
+            continue
+    
+    padres.sort(key=lambda x: len(x["path"]))
+
+    for p in padres:
+        print(p)
+        print("------------------")
+    
+    print(len(padres), "posibles padres encontrados")
+    
     return padres
         

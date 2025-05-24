@@ -31,7 +31,6 @@ def shortest_path():
 def shortest_path_data():
     return render_shortest_path_data(request)
 
-
 @app.route('/cadena', methods=['GET'])
 def cadena_form():
     return render_cadena_form()
