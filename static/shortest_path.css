@@ -1,5 +1,5 @@
-
 @import url('./colors.css');
+
 body {
     padding: 25px;
     background: var(--bg-body-mandarin);
@@ -9,6 +9,7 @@ body {
     transition: all 0.3s ease;
     min-height: 100vh;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -22,9 +23,9 @@ body {
     border-radius: 20px;
     padding: 30px;
     margin: 0 auto 40px;
-    max-width: 800px;    box-shadow:
-        0 20px 40px var(--shadow-black),
-        0 0 0 1px var(--border-white-medium);
+    max-width: 800px;
+    box-shadow: 0 20px 40px var(--shadow-black),
+    0 0 0 1px var(--border-white-medium);
     position: relative;
     overflow: hidden;
 }
@@ -42,8 +43,12 @@ body {
 }
 
 @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 h1 {
@@ -276,7 +281,7 @@ button[type="submit"]:hover {
     gap: 10px;
     margin: 15px 0;
     padding: 20px;
-    background: white;    
+    background: white;
     border: 1px solid var(--border-blue-alt);
     border-radius: 15px;
     box-shadow: 0 4px 12px var(--shadow-black);
@@ -305,7 +310,7 @@ button[type="submit"]:hover {
 }
 
 
-.pokemon-node a:hover{
+.pokemon-node a:hover {
     color: white;
     background: var(--text-blue);
     text-decoration: none;
@@ -340,6 +345,7 @@ button[type="submit"]:hover {
     gap: 30px;
     margin-bottom: 30px;
 }
+
 .breeding-arrow {
     font-size: 3em;
     color: var(--primary-green);
@@ -375,12 +381,12 @@ button[type="submit"]:hover {
         align-items: stretch;
         text-align: center;
     }
-    
+
     .pokemon-node, .egg-group-node {
         margin: 5px 0;
         text-align: center;
     }
-    
+
     .breeding-arrow {
         transform: rotate(90deg);
         margin: 5px 0;

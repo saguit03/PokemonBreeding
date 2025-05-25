@@ -11,37 +11,46 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+
 @app.route('/pokemons/<id>', methods=['GET'])
 def pokeinfo_id(id):
     return render_pokemon_por_id(id)
+
 
 @app.route('/pokemons', methods=['GET'])
 def pokeinfo_name():
     return render_pokemon_por_nombre(request)
 
+
 @app.route('/moves', methods=['GET'])
 def moves():
     return render_pokemon_por_movimiento(request)
+
 
 @app.route('/shortest_path', methods=['GET'])
 def shortest_path():
     return render_shortest_path_form()
 
+
 @app.route('/shortest_path', methods=['POST'])
 def shortest_path_data():
     return render_shortest_path_data(request)
+
 
 @app.route('/cadena', methods=['GET'])
 def cadena_form():
     return render_cadena_form()
 
+
 @app.route('/cadena', methods=['POST'])
 def cadena_data():
     return render_cadena_data(request)
 
+
 @app.route("/generaciones", methods=["GET"])
 def generaciones():
     return render_generaciones()
+
 
 @app.route("/generaciones", methods=["POST"])
 def pokemon_generaciones():

@@ -180,6 +180,7 @@ a:hover {
     color: var(--text-white);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
+
 .green-box {
     background: var(--primary-green);
     box-shadow: 0 10px 30px var(--shadow-green);
@@ -277,11 +278,11 @@ a:hover {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .search-box {
         padding: 20px;
     }
-    
+
     .pokeball-decoration h3 {
         font-size: 12px;
     }

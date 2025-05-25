@@ -55,5 +55,6 @@ SELECT SHORTESTPATH(
 La idea es obtener los Pokémon que aprenden Lanzallamas y calcular SHORTESTPATH con cada uno para averiguar si, a través de la crianza, Pikachu puede aprender Lanzallamas criando con un Charizard. 
 1. Se obtienen los Pokémon que aprenden Lanzallamas.
 2. En un bucle, se hacen peticiones de SHORTESTPATH hasta encontrar un camino.
-3. Opcional. Obtener todos los caminos y hallar el mínimo de todos ellos
+3. Devolver los posibles padres.  
+
 Esta idea combina consultas a ArcadeDB y procesamiento con Python.

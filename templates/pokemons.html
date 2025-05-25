@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Pokémon {{filtro}}</title>
+    <title>Pokémon {{ filtro }}</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}"></head>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}">
+</head>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap"
+      rel="stylesheet">
 
 <body>
-    <div class="pokeball-decoration"></div>
-    
-        {% if selected_filter %}
-            <h2>Pokémon {{filtro}}: {{ selected_filter }}</h2>
-            <ul>
-                {% for p in pokemons %}
-                    <li>
-                        <h3>
+<div class="pokeball-decoration"></div>
+
+{% if selected_filter %}
+    <h2>Pokémon {{ filtro }}: {{ selected_filter }}</h2>
+    <ul>
+        {% for p in pokemons %}
+            <li>
+                <h3>
                     <a href="/pokemons/{{ p.id }}">
-                    <span class="pokemon-number"># {{ p.num }}</span>:
-                    <span class="pokemon-name">{{ p.name }}</span>
+                        <span class="pokemon-number"># {{ p.num }}</span>:
+                        <span class="pokemon-name">{{ p.name }}</span>
                     </a>
                 </h3>
-                        <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ p.weightkg }} kg</span></p>
-                        <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ p.heightm }} m</span></p>
-                        <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ p.male_ratio }}</span></p>
-                        <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ p.female_ratio }}</span></p>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+                <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ p.weightkg }} kg</span></p>
+                <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ p.heightm }} m</span></p>
+                <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ p.male_ratio }}</span></p>
+                <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ p.female_ratio }}</span>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
-        <div class="back-button">
-            <a href="/">Volver al Centro Pokémon</a>
-        </div>
-    </div>
+<div class="back-button">
+    <a href="/">Volver al Centro Pokémon</a>
+</div>
+</div>
 </body>
 </html>

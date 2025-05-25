@@ -5,14 +5,17 @@ Curso 2024-2025
 ==================================================
 
 Autores:
+
 - Guillén Torrado, Sara
 - Mocinha Sánchez, Daniel
 
 ## Objetivo principal
 
-Dado un Pokémon y un movimiento, cómo podría aprenderlo: Se buscan las relaciones de grupo huevo y movimientos (debería ser parecido a shortestPath o Dijkstra)
+Dado un Pokémon y un movimiento, cómo podría aprenderlo: Se buscan las relaciones de grupo huevo y movimientos (debería
+ser parecido a shortestPath o Dijkstra)
 
 ## Otras consultas
+
 - Mostrar Pokémon por Generación
 - Mostrar Pokémon por Tipo
 - Mostrar Pokémon por Habilidad
@@ -29,11 +32,12 @@ Dado un Pokémon y un movimiento, cómo podría aprenderlo: Se buscan las relaci
 
 ## Ejecución
 
-Para que la aplicación funcione correctamente, es necesario tener versiones compatibles con Python y ArcadeDB.  
+Para que la aplicación funcione correctamente, es necesario tener versiones compatibles con Python y ArcadeDB.
 
 ### Ejecución de ArcadeDB
 
-Es imprescindible que ArcadeDB esté en ejecución. Para ello, se debe seguir la guía de instalación de ArcadeDB (dentro de `./docs`) y ejecutar el servidor.
+Es imprescindible que ArcadeDB esté en ejecución. Para ello, se debe seguir la guía de instalación de ArcadeDB (dentro
+de `./docs`) y ejecutar el servidor.
 
 ```
 cd /mnt/c/Users/estudiante/arcadedb-25.3.2/bin
@@ -42,13 +46,15 @@ cd /mnt/c/Users/estudiante/arcadedb-25.3.2/bin
 
 ### Carga de datos
 
-La primera vez que se utilice la aplicación, es necesario cargar los datos en la base de datos. Para ello, se debe ejecutar el script `load_data.py`:
+La primera vez que se utilice la aplicación, es necesario cargar los datos en la base de datos. Para ello, se debe
+ejecutar el script `load_data.py`:
 
 ```bash
 python3 load_data.py
 ```
 
-Cuidado, porque tenemos variables para no tener que cargar los datos durante la realización de pruebas. Para su correcto funcionamiento desde cero, se deben cambiar las siguientes variables a `True`:
+Cuidado, porque tenemos variables para no tener que cargar los datos durante la realización de pruebas. Para su correcto
+funcionamiento desde cero, se deben cambiar las siguientes variables a `True`:
 
 ```python
 CARGAR_TODO = True

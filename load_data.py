@@ -8,6 +8,7 @@ from utils import *
 CARGAR_TODO = False
 CARGAR_LEARNSETS = True
 
+
 def cargar_todos_datos_pokemon():
     with open(POKEMON_PATH) as f:
         pokemon_data = clean_json(json.load(f))
@@ -23,11 +24,13 @@ def cargar_todos_datos_pokemon():
     create_moves_nodes(moves_data)
     create_pokemon_relations(pokemon_data)
 
+
 def cargar_learnsets():
     with open(LEARNSETS_PATH) as f:
         learnsets_data = clean_json(json.load(f))
 
     create_learnsets_relations(learnsets_data)
+
 
 if CARGAR_TODO:
     cargar_todos_datos_pokemon()

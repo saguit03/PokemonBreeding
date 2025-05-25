@@ -64,10 +64,10 @@
     --gradient-green: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
     --gradient-pokeball: linear-gradient(180deg, #e74c3c 50%, #ffffff 50%);
     --gradient-pokeball-alt: linear-gradient(180deg, #ff6b6b 50%, white 50%);
-    --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    --gradient-shine: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 
     /* ===== SPECIAL EFFECTS ===== */
-    --text-shadow-main: 2px 2px 4px rgba(0,0,0,0.3);
+    --text-shadow-main: 2px 2px 4px rgba(0, 0, 0, 0.3);
     --text-shadow-glow: 0 0 10px rgba(74, 144, 226, 0.5);
     --text-shadow-blue-glow: 0 0 10px rgba(52, 152, 219, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.3);
     --conic-gradient: conic-gradient(from 0deg, transparent, rgba(74, 144, 226, 0.03), transparent);

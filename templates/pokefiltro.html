@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Pokémon por {{filtro}}</title>
+    <title>Pokémon por {{ filtro }}</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}"></head>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}">
+</head>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap"
+      rel="stylesheet">
 
 <body>
-    <div class="pokeball-decoration"></div>
-    <div class="container">
-        <h1>Pokémon por {{filtro}}</h1>
-        
-        {% if opciones %}
-        <p class="subtitle">Selecciona un {{filtro}} para ver los Pokémon relacionados con {{filtro}}</p>
+<div class="pokeball-decoration"></div>
+<div class="container">
+    <h1>Pokémon por {{ filtro }}</h1>
+
+    {% if opciones %}
+        <p class="subtitle">Selecciona un {{ filtro }} para ver los Pokémon relacionados con {{ filtro }}</p>
         <div class="form-container">
             <form method="POST">
-                <label for="filtro">Seleccionar {{filtro}} de Pokémon:</label>
+                <label for="filtro">Seleccionar {{ filtro }} de Pokémon:</label>
                 <select name="filtro" id="filtro">
                     {% for v in opciones %}
                         <option value="{{ v }}" {% if v == selected_filter %}selected{% endif %}>{{ v }}</option>
@@ -26,36 +28,38 @@
                 <input type="submit" value="Analizar Pokémon">
             </form>
         </div>
-        {% endif %}
+    {% endif %}
 
-        {% if selected_filter %}
+    {% if selected_filter %}
         <div class="container-background">
 
 
-            <h2>Pokémon de {{filtro}}: {{ selected_filter }}</h2>
+            <h2>Pokémon de {{ filtro }}: {{ selected_filter }}</h2>
             <ul>
                 {% for p in pokemons %}
                     <li>
-                <h3>
-                    <a href="/pokemons/{{ p.id }}">
-                    <span class="pokemon-number"># {{ p.num }}</span>:
-                    <span class="pokemon-name">{{ p.name }}</span>
-                    </a>
-                </h3>
+                        <h3>
+                            <a href="/pokemons/{{ p.id }}">
+                                <span class="pokemon-number"># {{ p.num }}</span>:
+                                <span class="pokemon-name">{{ p.name }}</span>
+                            </a>
+                        </h3>
                         <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ p.weightkg }} kg</span></p>
                         <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ p.heightm }} m</span></p>
-                        <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ p.male_ratio }}</span></p>
-                        <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ p.female_ratio }}</span></p>
+                        <p><span class="stat-label">Ratio Macho:</span> <span
+                                class="stat-value">{{ p.male_ratio }}</span></p>
+                        <p><span class="stat-label">Ratio Hembra:</span> <span
+                                class="stat-value">{{ p.female_ratio }}</span></p>
                     </li>
                 {% endfor %}
             </ul>
         </div>
 
-        {% endif %}
+    {% endif %}
 
-        <div class="back-button">
-            <a href="/">Volver al Centro Pokémon</a>
-        </div>
+    <div class="back-button">
+        <a href="/">Volver al Centro Pokémon</a>
     </div>
+</div>
 </body>
 </html>

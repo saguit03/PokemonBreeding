@@ -15,7 +15,7 @@ body {
     line-height: 1.6;
 }
 
-.container-background{
+.container-background {
     background-color: var(--text-dark-alt);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -56,9 +56,8 @@ h1 {
     padding: 30px;
     margin: 0 auto 40px;
     max-width: 500px;
-    box-shadow:
-        0 20px 40px var(--shadow-black-strong),
-        inset 0 1px 0 var(--shadow-white);
+    box-shadow: 0 20px 40px var(--shadow-black-strong),
+    inset 0 1px 0 var(--shadow-white);
     position: relative;
 }
 
@@ -107,7 +106,7 @@ select:focus {
 }
 
 select option {
-    background: var(--text-dark-alt );
+    background: var(--text-dark-alt);
     color: var(--text-white-alt);
     padding: 10px;
 }
@@ -162,9 +161,8 @@ li {
     background: var(--gradient-body);
     border-radius: 15px;
     padding: 25px;
-    box-shadow:
-        0 15px 30px var(--shadow-black),
-        inset 0 1px 0 var(--shadow-white);
+    box-shadow: 0 15px 30px var(--shadow-black),
+    inset 0 1px 0 var(--shadow-white);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -188,9 +186,8 @@ li:hover::before {
 
 li:hover {
     transform: translateY(-5px);
-    box-shadow:
-        0 20px 40px var(--shadow-black-strong),
-        0 0 20px var(--shadow-blue-bright-hover);
+    box-shadow: 0 20px 40px var(--shadow-black-strong),
+    0 0 20px var(--shadow-blue-bright-hover);
     border-color: var(--text-pokemon-pink);
 }
 

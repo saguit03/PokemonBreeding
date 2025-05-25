@@ -7,8 +7,9 @@
     <link rel="icon" href="{{ url_for('static', filename='pokeball-favicon.png') }}" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <div class="white_div">
@@ -16,64 +17,68 @@
     <p class="pokemon-subtitle">¿Mis Pokémon pueden criar entre sí?</p>
     <div class="pokemon-stats">
         <span class="pokeball-icon"></span>
-            Sistema de crianza Pokémon
+        Sistema de crianza Pokémon
         <span class="pokeball-icon"></span>
     </div>
 </div>
 
 {% if path_data %}
-    <h2>Ruta de crianza entre {{origen}} y {{destino}}:</h2>
-        <div class="breeding-path">
-            {% for data in path_data %}
-                {% if data.node_type == "Pokemon" %}
-                    <div class="pokemon-node">
-                        <div class="pokemon-stats">
-                            <a href="/pokemons/{{ data.id }}">
-                                <span class="pokemon-number"># {{ data.num }}</span>:
-                                <span class="pokemon-name">{{ data.name }}</span>
-                            </a>                        
-                            <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ data.weightkg }} kg</span></p>
-                            <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ data.heightm }} m</span></p>
-                            <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ data.male_ratio }}</span></p>
-                            <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ data.female_ratio }}</span></p>
-                        </div>
+    <h2>Ruta de crianza entre {{ origen }} y {{ destino }}:</h2>
+    <div class="breeding-path">
+        {% for data in path_data %}
+            {% if data.node_type == "Pokemon" %}
+                <div class="pokemon-node">
+                    <div class="pokemon-stats">
+                        <a href="/pokemons/{{ data.id }}">
+                            <span class="pokemon-number"># {{ data.num }}</span>:
+                            <span class="pokemon-name">{{ data.name }}</span>
+                        </a>
+                        <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ data.weightkg }} kg</span>
+                        </p>
+                        <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ data.heightm }} m</span>
+                        </p>
+                        <p><span class="stat-label">Ratio Macho:</span> <span
+                                class="stat-value">{{ data.male_ratio }}</span></p>
+                        <p><span class="stat-label">Ratio Hembra:</span> <span
+                                class="stat-value">{{ data.female_ratio }}</span></p>
                     </div>
-                {% else %}                    
+                </div>
+            {% else %}
                 <div class="egg-group-node">
-                        <span class="egg-group-label">Grupo Huevo:</span>
-                        <span class="pokemon-name">{{ data.name }}</span>
-                    </div>
-                {% endif %}
-                  {% if not loop.last %}
-                    <div class="breeding-arrow">→</div>
-                {% endif %}
-            {% endfor %}
-        </div>
+                    <span class="egg-group-label">Grupo Huevo:</span>
+                    <span class="pokemon-name">{{ data.name }}</span>
+                </div>
+            {% endif %}
+            {% if not loop.last %}
+                <div class="breeding-arrow">→</div>
+            {% endif %}
+        {% endfor %}
+    </div>
     <div class="button-container">
         <p><a href="/shortest_path">Calcular otra ruta Pokémon</a></p>
     </div>
 {% else %}
-<nav>
-    <form method="POST" onsubmit="return validarFormulario();">
-        <label>Pokémon origen:
-            <select name="source_id" id="source_id" required>
-                {% for poke in pokemons %}
-                    <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br>
-        <label>Pokémon destino:
-            <select name="target_id" id="target_id" required>
-                {% for poke in pokemons %}
-                    <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br>
-        <button type="submit">Calcular ruta</button>
-    </form>
-</nav>
+    <nav>
+        <form method="POST" onsubmit="return validarFormulario();">
+            <label>Pokémon origen:
+                <select name="source_id" id="source_id" required>
+                    {% for poke in pokemons %}
+                        <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br>
+            <label>Pokémon destino:
+                <select name="target_id" id="target_id" required>
+                    {% for poke in pokemons %}
+                        <option value="{{ poke.id }}">{{ poke.name }} (ID {{ poke.id }})</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br>
+            <button type="submit">Calcular ruta</button>
+        </form>
+    </nav>
 {% endif %}
 
 <div class="button-container">
@@ -91,7 +96,7 @@
         return true;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#source_id').select2({
             placeholder: "Selecciona un Pokémon origen",
             width: '100%'

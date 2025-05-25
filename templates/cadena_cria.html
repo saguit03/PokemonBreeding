@@ -7,8 +7,9 @@
     <link rel="icon" href="{{ url_for('static', filename='pokeball-favicon.png') }}" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <div class="white_div">
@@ -16,70 +17,71 @@
     <p class="pokemon-subtitle">¿Cómo puedo lograr que mi Pokémon aprenda ese movimiento?</p>
     <div class="pokemon-stats">
         <span class="pokeball-icon"></span>
-            Cadena de crianza Pokémon
+        Cadena de crianza Pokémon
         <span class="pokeball-icon"></span>
     </div>
 </div>
 
 {% if posibles_padres %}
-<h2 class="white-text"> Posibles padres de {{origen}} para aprender el Movimiento {{destino}} ({{ posibles_padres | length}})</h2>
-    
-{% for padre in posibles_padres %}
-<div class="two-column-layout">        
-    <h3 class="padre-title">Posible padre: 
-        <a href="/pokemons/{{ padre.pokemon.id }}">
-            <span class="pokemon-number"># {{ padre.pokemon.num }}</span>:
-            <span class="pokemon-name">{{ padre.pokemon.name }}</span>
-        </a>
-    </h3>
-        <div class="breeding-path">
-            {% for data in padre.path %}
-                {% if data.node_type == "Pokemon" %}
-                    <span class="pokemon-node">
+    <h2 class="white-text"> Posibles padres de {{ origen }} para aprender el Movimiento {{ destino }}
+        ({{ posibles_padres | length }})</h2>
+
+    {% for padre in posibles_padres %}
+        <div class="two-column-layout">
+            <h3 class="padre-title">Posible padre:
+                <a href="/pokemons/{{ padre.pokemon.id }}">
+                    <span class="pokemon-number"># {{ padre.pokemon.num }}</span>:
+                    <span class="pokemon-name">{{ padre.pokemon.name }}</span>
+                </a>
+            </h3>
+            <div class="breeding-path">
+                {% for data in padre.path %}
+                    {% if data.node_type == "Pokemon" %}
+                        <span class="pokemon-node">
                         <a href="/pokemons/{{ data.id }}">
                             <span class="pokemon-number"># {{ data.num }}</span>:
                             <span class="pokemon-name">{{ data.name }}</span>
                         </a>
                     </span>
-                {% else %}
-                    <span class="egg-group-node">
+                    {% else %}
+                        <span class="egg-group-node">
                         <span class="pokemon-name">{{ data.name }}</span>
                     </span>
-                {% endif %}
-                
-                {% if not loop.last %}
-                    <span class="breeding-arrow">→</span>
-                {% endif %}
-            {% endfor %}
+                    {% endif %}
+
+                    {% if not loop.last %}
+                        <span class="breeding-arrow">→</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
 
     <div class="button-container">
         <p><a href="/cadena">Ver más cadenas de cría</a></p>
     </div>
 {% else %}
-<nav>
-    <form method="POST" onsubmit="return validarFormulario();">
-        <label>Pokémon origen:
-            <select name="source_id" id="source_id" required>
-                {% for poke in pokemons %}
-                    <option value="{{ poke.id }}">{{ poke.name }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br>
-        <label>Movimiento a aprender:
-            <select name="target_id" id="target_id" required>
-                {% for move in movements %}
-                    <option value="{{ move.id }}">{{ move.name }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <br>
-        <button type="submit">Buscar cadena de cría</button>
-    </form>
-</nav>
+    <nav>
+        <form method="POST" onsubmit="return validarFormulario();">
+            <label>Pokémon origen:
+                <select name="source_id" id="source_id" required>
+                    {% for poke in pokemons %}
+                        <option value="{{ poke.id }}">{{ poke.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br>
+            <label>Movimiento a aprender:
+                <select name="target_id" id="target_id" required>
+                    {% for move in movements %}
+                        <option value="{{ move.id }}">{{ move.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br>
+            <button type="submit">Buscar cadena de cría</button>
+        </form>
+    </nav>
 {% endif %}
 
 <div class="button-container">
@@ -97,7 +99,7 @@
         return true;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#source_id').select2({
             placeholder: "Selecciona un Pokémon origen",
             width: '100%'

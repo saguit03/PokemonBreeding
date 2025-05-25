@@ -127,7 +127,7 @@ def get_pokemon_relations(poke_id):
     relaciones["tipos"] = get_names(execute_sql(f"""
             SELECT out('DeTipo').name as name FROM Pokemon WHERE id = '{poke_id}'
         """))
-        
+
     relaciones["habilidades"] = get_names(execute_sql(f"""
             SELECT out('PoseeHabilidad').name as name FROM Pokemon WHERE id = '{poke_id}'
         """))

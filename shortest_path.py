@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 
+
 class ShortestPathProcessor:
     def __init__(self, json_data: Dict[str, Any]):
         self.json_data = json_data
@@ -9,12 +10,12 @@ class ShortestPathProcessor:
         self.path_data = []
         if not result:
             return
-        
+
         if 'vertices' in result and isinstance(result['vertices'], list):
             for vertex in result['vertices']:
                 if 'r' in vertex and 'p' in vertex:
                     self.vertices[vertex['r']] = vertex['p']
-        
+
         if 'edges' in result and isinstance(result['edges'], list):
             self.edges = result['edges']
         if 'records' in result and isinstance(result['records'], list):
@@ -23,7 +24,7 @@ class ShortestPathProcessor:
                 for key, value in record.items():
                     if 'SHORTESTPATH' in key and isinstance(value, list):
                         self.path_data = value
-        
+
         if isinstance(result, list) and len(result) > 0:
             for record in result:
                 if isinstance(record, dict):
@@ -37,7 +38,7 @@ class ShortestPathProcessor:
         if not self.path_data:
             return self._reconstruct_path_from_graph()
         return self.path_data
-    
+
     def _reconstruct_path_from_graph(self) -> List[str]:
         """Reconstruct path from vertices and edges when path_data is empty"""
         if not self.vertices or not self.edges:
@@ -51,10 +52,9 @@ class ShortestPathProcessor:
                 grupo_huevo_vertices.append(rid)
         if len(pokemon_vertices) < 2:
             return []
-        path = [pokemon_vertices[0]]  
+        path = [pokemon_vertices[0]]
         for grupo_rid in grupo_huevo_vertices:
             path.append(grupo_rid)
         if len(pokemon_vertices) > 1:
             path.append(pokemon_vertices[-1])
         return path
-    

@@ -35,15 +35,19 @@ Se divide el código en distintos archivos para facilitar su mantenimiento:
 
 ### Funcionalidades
 - Se implementan las siguientes funcionalidades:
-  - Carga de datos desde los ficheros JSON. (POR HACER)
   - Consultas a la base de datos a través de la API de ArcadeDB.
   - Visualización de los resultados en la aplicación web.
+
+### Consultas especiales
+
+- Cadena de crianza (ruta más corta) entre dos Pokémon.
+- Posibles padres de cadenas de crianza para aprender un movimiento.
 
 ## Pruebas sobre la API
 
 Consultas sobre la API de ArcadeDB a través de la aplicación web en Flask.
 
 1. Se cargan los datos como se indica en la sección anterior.
-2. Se implementan las consultas de `docs/CONSULTAS.md` en la aplicación web.
+2. Se implementan las consultas de `docs/Consultas.md` en la aplicación web.
 3. Se visualizan los resultados en la aplicación web.
 

@@ -1,9 +1,10 @@
 import json
-import requests
 import json
 import requests
-from shortest_path import *
+import requests
 from tqdm import tqdm
+
+from shortest_path import *
 
 ARCADEDB_URL = "http://localhost:2480"
 DB_NAME = "pokemondb"
@@ -103,6 +104,7 @@ def get_all_categorias():
         categorias.append(res["name"])
     return categorias
 
+
 def get_all_pokemons():
     query = "SELECT id, name, num FROM Pokemon ORDER BY num"
     result = execute_sql(query).get("result", [])
@@ -114,6 +116,7 @@ def get_all_pokemons():
             "name": res["name"]
         })
     return pokemons
+
 
 def get_all_movements():
     query = "SELECT id, name, num FROM Movimiento ORDER BY num"
@@ -127,6 +130,7 @@ def get_all_movements():
         })
     return pokemons
 
+
 def get_pokemon_by_name(pokename):
     query = f"""
         SELECT FROM Pokemon WHERE name ILIKE '%{pokename}%'
@@ -136,7 +140,8 @@ def get_pokemon_by_name(pokename):
     pokemons = []
     for p in result:
         pokemons.append(get_pokemon_info(p))
-    return pokemons    
+    return pokemons
+
 
 def get_pokemon_by_id(poke_id):
     query = f"""
@@ -149,16 +154,18 @@ def get_pokemon_by_id(poke_id):
         pokemons.append(get_pokemon_info(p))
     return pokemons[0]
 
+
 def get_pokemon_info(pokemon):
     return {
-            "id": pokemon["id"],
-            "num": pokemon["num"],
-            "name": pokemon["name"],
-            "weightkg": pokemon["weightkg"],
-            "heightm": pokemon["heightm"],
-            "male_ratio": pokemon["male_ratio"],
-            "female_ratio": pokemon["female_ratio"]
-        }
+        "id": pokemon["id"],
+        "num": pokemon["num"],
+        "name": pokemon["name"],
+        "weightkg": pokemon["weightkg"],
+        "heightm": pokemon["heightm"],
+        "male_ratio": pokemon["male_ratio"],
+        "female_ratio": pokemon["female_ratio"]
+    }
+
 
 def get_pokemons_data(query):
     response = execute_sql(query)
@@ -172,11 +179,11 @@ def get_pokemons_data(query):
 def fetch_vertices_by_rid(rid_list, simplified=False):
     rid_str = ', '.join(rid_list)
     response = execute_sql(f"SELECT FROM [{rid_str}]")
-    
+
     path = []
     for record in response.get("result", []):
         if record["@type"] == "Pokemon":
-            if(MOSTRAR_EJECUCION): print(f"ID: {record['id']}, Name: {record['name']}, Num: {record['num']}")
+            if (MOSTRAR_EJECUCION): print(f"ID: {record['id']}, Name: {record['name']}, Num: {record['num']}")
             if simplified:
                 path.append({
                     "id": record["id"],
@@ -196,12 +203,13 @@ def fetch_vertices_by_rid(rid_list, simplified=False):
                     "node_type": record["@type"]
                 })
         elif record["@type"] == "GrupoHuevo":
-            if(MOSTRAR_EJECUCION): print(f"Grupo Huevo: {record['name']}")
+            if (MOSTRAR_EJECUCION): print(f"Grupo Huevo: {record['name']}")
             path.append({
                 "name": record["name"],
                 "node_type": record["@type"]
             })
     return path
+
 
 def get_shortest_egg_path(id_1, id_2, simplified=False):
     response = execute_sql(f"""
@@ -213,7 +221,7 @@ def get_shortest_egg_path(id_1, id_2, simplified=False):
     """)
     processor = ShortestPathProcessor(response)
     path = fetch_vertices_by_rid(processor.get_shortest_path(), simplified=simplified)
-    if(MOSTRAR_EJECUCION): print(len(path), "nodos en el camino más corto")
+    if (MOSTRAR_EJECUCION): print(len(path), "nodos en el camino más corto")
     return path
 
 
@@ -251,6 +259,7 @@ def get_pokemon_that_learn_movement(move_id):
         pokemons.append(get_pokemon_info(p))
     return pokemons
 
+
 def cadena_cria(poke_id, move_id):
     posibles_padres = get_pokemon_that_learn_movement(move_id)
     if not posibles_padres:
@@ -267,8 +276,7 @@ def cadena_cria(poke_id, move_id):
                 })
         except Exception as e:
             continue
-    
+
     padres.sort(key=lambda x: len(x["path"]))
-    
+
     return padres
-        
