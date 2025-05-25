@@ -9,10 +9,20 @@ Autores:
 - Guillén Torrado, Sara
 - Mocinha Sánchez, Daniel
 
+## Herramientas
+
+- Python 3.10.12
+- ArcadeDB 25.3.2
+- VSCode
+- GitHub
+
 ## Objetivo principal
 
-Dado un Pokémon y un movimiento, cómo podría aprenderlo: Se buscan las relaciones de grupo huevo y movimientos (debería
-ser parecido a shortestPath o Dijkstra)
+Dado un Pokémon A y un movimiento X, cómo podría aprenderlo a través de cadenas de crianza.
+
+1. Obtenemos los Pokémon que pueden aprender el movimiento X.
+2. Buscamos las cadenas de crianza entre el Pokémon A y los Pokémon que pueden aprender el movimiento X.
+3. Mostramos las cadenas de crianza encontradas.
 
 ## Otras consultas
 
@@ -22,13 +32,6 @@ ser parecido a shortestPath o Dijkstra)
 - Mostrar Pokémon por Grupo Huevo
 - Mostrar Pokémon por Colores
 - Mostrar Pokémon por Categoría
-
-## Herramientas
-
-- Python 3.10.12
-- ArcadeDB 25.3.2
-- VSCode
-- GitHub
 
 ## Ejecución
 
@@ -55,6 +58,7 @@ python3 load_data.py
 
 Cuidado, porque tenemos variables para no tener que cargar los datos durante la realización de pruebas. Para su correcto
 funcionamiento desde cero, se deben cambiar las siguientes variables a `True`:
+
 
 ```python
 CARGAR_TODO = True

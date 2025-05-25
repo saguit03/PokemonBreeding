@@ -5,7 +5,7 @@ from arcade_relations import *
 from globals import *
 from utils import *
 
-CARGAR_TODO = False
+CARGAR_TODO = True
 CARGAR_LEARNSETS = True
 
 
