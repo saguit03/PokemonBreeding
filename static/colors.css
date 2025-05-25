@@ -1,0 +1,74 @@
+/* 
+ * Unified Color System for Pokemon Breeding Application
+ * Simplified version with essential colors only
+ */
+
+:root {
+    /* ===== PRIMARY COLORS ===== */
+    --primary-blue: #4A90E2;
+    --primary-red: #e74c3c;
+    --primary-green: #27ae60;
+    --primary-orange: #ff8247;
+
+    /* ===== BACKGROUND COLORS ===== */
+    --bg-white: #ffffff;
+    --bg-gray-light: #f4f4f4;
+    --bg-gray: #bebebe;
+    --bg-gray-dark: #313131;
+    --bg-body-main: #a12020;
+    --bg-body-mandarin: #ffdd92;
+    --bg-form-dark: #2f1a1a;
+    --bg-white-transparent: rgba(255, 255, 255, 0.9);
+    --bg-blue-light: rgba(74, 144, 226, 0.1);
+    --bg-green-light: rgba(39, 174, 96, 0.1);
+    --bg-green: rgba(39, 174, 96, 0.1);
+
+    /* ===== TEXT COLORS ===== */
+    --text-black: #000000;
+    --text-white: #ffffff;
+    --text-gray: #7f8c8d;
+    --text-dark: #2c3e50;
+    --text-blue: #2b6cb0;
+    --text-yellow: #f39c12;
+    --text-dark-alt: #2c3e50;
+    --text-white-alt: #ecf0f1;
+    --text-gray-medium: #7f8c8d;
+
+    /* ===== BORDER COLORS ===== */
+    --border-blue: rgba(74, 144, 226, 0.2);
+    --border-blue-strong: rgba(74, 144, 226, 0.3);
+    --border-blue-focus: #4a90e2;
+    --border-gray: #e2e8f0;
+    --border-green: rgba(39, 174, 96, 0.3);
+    --border-white: rgba(255, 255, 255, 0.3);
+    --border-white-medium: rgba(255, 255, 255, 0.5);
+    --border-dark: #2c3e50;
+
+    /* ===== SHADOW COLORS ===== */
+    --shadow-black: rgba(0, 0, 0, 0.2);
+    --shadow-black-strong: rgba(0, 0, 0, 0.3);
+    --shadow-blue: rgba(74, 144, 226, 0.3);
+    --shadow-blue-bright-strong: rgba(52, 152, 219, 0.4);
+    --shadow-green: rgba(39, 174, 96, 0.3);
+    --shadow-orange: rgba(255, 130, 71, 0.3);
+    --shadow-red: rgba(231, 76, 60, 0.4);
+
+    /* ===== GRADIENTS ===== */
+    --gradient-body: linear-gradient(135deg, #f4f4f4 0%, #f4f4f4 100%);
+    --gradient-white: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+    --gradient-nav: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(237, 242, 247, 0.9) 100%);
+    --gradient-blue: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    --gradient-blue-toggle: linear-gradient(45deg, #502c2c 0%, #db3434 100%);
+    --gradient-red: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    --gradient-red-link: linear-gradient(90deg, #db3434 0%, #b92929 100%);
+    --gradient-green: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    --gradient-pokeball: linear-gradient(180deg, #e74c3c 50%, #ffffff 50%);
+    --gradient-pokeball-alt: linear-gradient(180deg, #ff6b6b 50%, white 50%);
+    --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+
+    /* ===== SPECIAL EFFECTS ===== */
+    --text-shadow-main: 2px 2px 4px rgba(0,0,0,0.3);
+    --text-shadow-glow: 0 0 10px rgba(74, 144, 226, 0.5);
+    --text-shadow-blue-glow: 0 0 10px rgba(52, 152, 219, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.3);
+    --conic-gradient: conic-gradient(from 0deg, transparent, rgba(74, 144, 226, 0.03), transparent);
+}

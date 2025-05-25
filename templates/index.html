@@ -5,15 +5,12 @@
     <title>Crianza Pokémon</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"></head>
 <body>
-<nav>
     <h1>Crianza Pokémon</h1>
-</nav>
 
 <nav>
-    <h2>Menú principal</h2>
     <div class="container">
-        <div>
-            <div class="pokeball-decoration"><h3></h3>Buscador por nombre de Pokémon</h3></div>
+        <div class="search-box">
+            <div class="pokeball-decoration"><h3>Buscador por nombre de Pokémon</h3></div>
             <div class="form-container">
                 <form method="GET" action="/pokemons">
                     <label for="pokename">Nombre:</label>
@@ -22,8 +19,8 @@
                 </form>
             </div>
         </div>
-        <div>
-            <div class="pokeball-decoration"><h3></h3>Buscador por movimiento Pokémon</h3></div>
+        <div class="search-box">
+            <div class="pokeball-decoration"><h3>Buscador por movimiento Pokémon</h3></div>
             <div class="form-container">
                 <form method="GET" action="/moves">
                     <label for="movename">Nombre:</label>
@@ -33,16 +30,21 @@
             </div>
         </div>
     </div>
+    <div class="two-column-layout">
+         <div>
+            <a class="green-box" href="/shortest_path">Caminos más cortos</a>
+         </div>
+            <div><a class="green-box"  href="/cadena">Cadenas de crianza</a>
+         </div>
+    </div>
     <div>
-        <ul>
-            <li><a href="/shortest_path">Caminos más cortos</a></li>
-            <li><a href="/cadena">Cadenas de crianza</a></li>
-            <li><a href="/generaciones">Pokémon por Generación</a></li>
-            <li><a href="/tipos">Pokémon por Tipo</a></li>
-            <li><a href="/habilidades">Pokémon por Habilidad</a></li>
-            <li><a href="/grupos">Pokémon por Grupo Huevo</a></li>
-            <li><a href="/colores">Pokémon por Colores</a></li>
-            <li><a href="/categorias">Pokémon por Categoría</a></li>
+        <ul class="three-column-layout">
+            <li><a class="blue-box" href="/generaciones">Pokémon por Generación</a></li>
+            <li><a class="blue-box" href="/tipos">Pokémon por Tipo</a></li>
+            <li><a class="blue-box" href="/habilidades">Pokémon por Habilidad</a></li>
+            <li><a class="blue-box" href="/grupos">Pokémon por Grupo Huevo</a></li>
+            <li><a class="blue-box" href="/colores">Pokémon por Colores</a></li>
+            <li><a class="blue-box" href="/categorias">Pokémon por Categoría</a></li>
         </ul>
     </div>
 </nav>

@@ -21,42 +21,42 @@
     </div>
 </div>
 
-
-
 {% if posibles_padres %}
-<h2> Posibles padres de {{origen}} para aprender el Movimiento {{destino}} ({{ posibles_padres | length}})</h2>
+<h2 class="white-text"> Posibles padres de {{origen}} para aprender el Movimiento {{destino}} ({{ posibles_padres | length}})</h2>
+    
 {% for padre in posibles_padres %}
-    <h3 class="padre-title">Padre posible: 
+<div class="two-column-layout">        
+    <h3 class="padre-title">Posible padre: 
         <a href="/pokemons/{{ padre.pokemon.id }}">
             <span class="pokemon-number"># {{ padre.pokemon.num }}</span>:
             <span class="pokemon-name">{{ padre.pokemon.name }}</span>
         </a>
     </h3>
-    <div>
-
-        <ul>
+        <div class="breeding-path">
             {% for data in padre.path %}
-            <li>
                 {% if data.node_type == "Pokemon" %}
-                <h4>
-                    <a href="/pokemons/{{ data.id }}">
-                        <span class="pokemon-number"># {{ data.num }}</span>:
-                        <span class="pokemon-name">{{ data.name }}</span>
-                    </a>
-                </h4>
+                    <span class="pokemon-node">
+                        <a href="/pokemons/{{ data.id }}">
+                            <span class="pokemon-number"># {{ data.num }}</span>:
+                            <span class="pokemon-name">{{ data.name }}</span>
+                        </a>
+                    </span>
                 {% else %}
-                <h4>Grupo Huevo:
-                    <span class="pokemon-name">{{ data.name }}</span>
-                </h4>
+                    <span class="egg-group-node">
+                        <span class="pokemon-name">{{ data.name }}</span>
+                    </span>
                 {% endif %}
-            </li>
+                
+                {% if not loop.last %}
+                    <span class="breeding-arrow">→</span>
+                {% endif %}
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endfor %}
 
     <div class="button-container">
-        <p><a href="/cadena_cria">Ver más cadenas de cría</a></p>
+        <p><a href="/cadena">Ver más cadenas de cría</a></p>
     </div>
 {% else %}
 <nav>

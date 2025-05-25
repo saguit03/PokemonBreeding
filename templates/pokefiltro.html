@@ -29,6 +29,9 @@
         {% endif %}
 
         {% if selected_filter %}
+        <div class="container-background">
+
+
             <h2>Pokémon de {{filtro}}: {{ selected_filter }}</h2>
             <ul>
                 {% for p in pokemons %}
@@ -46,6 +49,8 @@
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+
         {% endif %}
 
         <div class="back-button">

@@ -1,3 +1,5 @@
+@import url('./colors.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,12 +7,21 @@
 }
 
 body {
-    background-color: rgb(161, 32, 32);
-    color: #ecf0f1;
+    background-color: var(--bg-body-mandarin);
+    color: var(--text-white-alt);
     font-family: 'Orbitron', sans-serif;
     min-height: 100vh;
     padding: 30px 20px;
     line-height: 1.6;
+}
+
+.container-background{
+    background-color: var(--text-dark-alt);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px var(--shadow-black);
+    margin: 20px auto;
 }
 
 .container {
@@ -20,19 +31,17 @@ body {
 
 h1 {
     font-family: 'Press Start 2P', cursive;
-    color: #ffffff;
+    color: var(--text-white);
     text-align: center;
     font-size: 28px;
     margin-bottom: 15px;
-    text-shadow:
-        0 0 10px rgba(52, 152, 219, 0.5),
-        2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: var(--text-shadow-blue-glow);
     letter-spacing: 2px;
 }
 
 .subtitle {
     text-align: center;
-    color: #bdc3c7;
+    color: var(--text-gray-bright);
     font-size: 14px;
     margin-bottom: 40px;
     font-weight: 300;
@@ -41,15 +50,15 @@ h1 {
 }
 
 .form-container {
-    background: linear-gradient(135deg, #bebebe 0%, #868686 100%);
-    border: 2px solid #db3434;
+    background: var(--bg-white-transparent);
+    border: 2px solid var(--border-red);
     border-radius: 15px;
     padding: 30px;
     margin: 0 auto 40px;
     max-width: 500px;
     box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 20px 40px var(--shadow-black-strong),
+        inset 0 1px 0 var(--shadow-white);
     position: relative;
 }
 
@@ -60,7 +69,7 @@ h1 {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #db3434, #b92929, #db3434);
+    background: var(--gradient-red-form-border);
     border-radius: 15px;
     z-index: -1;
     opacity: 0.7;
@@ -68,7 +77,7 @@ h1 {
 
 label {
     display: block;
-    color: #000000;
+    color: var(--text-black);
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 10px;
@@ -79,10 +88,10 @@ label {
 select {
     width: 100%;
     padding: 15px 20px;
-    background: #2f1a1a;
-    border: 2px solid #5e3434;
+    background: var(--text-dark-alt);
+    border: 2px solid var(--bg-form-dark-border);
     border-radius: 10px;
-    color: #ecf0f1;
+    color: var(--text-white-alt);
     font-size: 16px;
     font-family: 'Orbitron', sans-serif;
     margin-bottom: 25px;
@@ -92,21 +101,21 @@ select {
 
 select:focus {
     outline: none;
-    border-color: #db3434;
-    box-shadow: 0 0 15px rgba(219, 52, 52, 0.3);
-    background: #6a3636;
+    /* border-color: var(--border-red); */
+    box-shadow: 0 0 15px var(--shadow-red);
+    /* background: var(--bg-form-dark-focus); */
 }
 
 select option {
-    background: #2f1a1a;
-    color: #ecf0f1;
+    background: var(--text-dark-alt );
+    color: var(--text-white-alt);
     padding: 10px;
 }
 
 input[type="submit"] {
     width: 100%;
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
+    background: var(--bg-body-mandarin);
+    color: var(--text-white);
     border: none;
     padding: 18px 30px;
     border-radius: 12px;
@@ -117,13 +126,14 @@ input[type="submit"] {
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+    box-shadow: 0 8px 25px var(--shadow-red-pokemon);
 }
 
 input[type="submit"]:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.6);
-    background: linear-gradient(135deg, #f85a4a 0%, #d63031 100%);
+    box-shadow: 0 12px 35px var(--shadow-red-pokemon-strong);
+    background-color: var(--border-blue-focus);
+
 }
 
 input[type="submit"]:active {
@@ -132,29 +142,29 @@ input[type="submit"]:active {
 
 h2 {
     font-family: 'Press Start 2P', cursive;
-    color: #f39c12;
+    color: var(--text-yellow-bright);
     text-align: center;
     font-size: 20px;
     margin: 40px 0 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: var(--text-shadow-main);
     letter-spacing: 1px;
 }
 
 ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 25px;
     margin-top: 30px;
 }
 
 li {
-    background: linear-gradient(90deg, #313131, #727272);
+    background: var(--gradient-body);
     border-radius: 15px;
     padding: 25px;
     box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 15px 30px var(--shadow-black),
+        inset 0 1px 0 var(--shadow-white);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -167,7 +177,7 @@ li::before {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #db3434, #ff7474, #db3434);
+    background: var(--gradient-red-item-top);
     transform: translateX(-100%);
     transition: transform 0.5s ease;
 }
@@ -179,45 +189,45 @@ li:hover::before {
 li:hover {
     transform: translateY(-5px);
     box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(52, 152, 219, 0.2);
-    border-color: #ffa2a2;
+        0 20px 40px var(--shadow-black-strong),
+        0 0 20px var(--shadow-blue-bright-hover);
+    border-color: var(--text-pokemon-pink);
 }
 
 li h3 {
-    color: #ff7474;
+    color: var(--text-pokemon-red);
     font-family: 'Press Start 2P', cursive;
     font-size: 16px;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: var(--text-shadow);
     line-height: 1.4;
 }
 
 li p {
-    color: #bdc3c7;
+    color: var(--text-black);
     margin: 8px 0;
     font-size: 14px;
     font-weight: 500;
 }
 
 li p strong {
-    color: #ecf0f1;
+    /* color: var(--text-white-alt); */
     font-weight: 700;
 }
 
 .pokemon-number {
-    color: #f39c12;
+    color: var(--text-yellow-bright);
     font-weight: 900;
 }
 
 .pokemon-name {
-    color: #e74c3c;
+    color: var(--primary-red-pokemon);
     font-weight: 700;
     text-transform: capitalize;
 }
 
 .stat-label {
-    color: #74b9ff;
+    color: var(--text-blue-bright);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 12px;
@@ -225,7 +235,7 @@ li p strong {
 }
 
 .stat-value {
-    color: #f1c40f;
+    color: var(--text-yellow-gold);
     font-weight: 700;
 }
 
@@ -236,8 +246,8 @@ li p strong {
 
 .back-button a {
     display: inline-block;
-    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-    color: white;
+    background: var(--gradient-blue);
+    color: var(--text-white);
     padding: 15px 30px;
     text-decoration: none;
     border-radius: 10px;
@@ -246,13 +256,13 @@ li p strong {
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+    box-shadow: 0 8px 25px var(--shadow-green-bright);
 }
 
 .back-button a:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(39, 174, 96, 0.4);
-    background: linear-gradient(135deg, #2ecc71 0%, #58d68d 100%);
+    box-shadow: 0 12px 35px var(--shadow-green-bright-strong);
+    background: var(--bg-form-dark);
 }
 
 .pokeball-decoration {
@@ -261,9 +271,9 @@ li p strong {
     right: 20px;
     width: 40px;
     height: 40px;
-    background: linear-gradient(180deg, #e74c3c 50%, #ecf0f1 50%);
+    background: var(--gradient-pokeball-decoration);
     border-radius: 50%;
-    border: 3px solid #2c3e50;
+    border: 3px solid var(--border-dark);
     opacity: 0.3;
 }
 
@@ -275,8 +285,8 @@ li p strong {
     transform: translate(-50%, -50%);
     width: 12px;
     height: 12px;
-    background: #ecf0f1;
-    border: 2px solid #2c3e50;
+    background: var(--text-white-alt);
+    border: 2px solid var(--border-dark);
     border-radius: 50%;
 }
 

@@ -23,30 +23,32 @@
 
 {% if path_data %}
     <h2>Ruta de crianza entre {{origen}} y {{destino}}:</h2>
-    <nav id="shortest_path">
-        <ul>
+        <div class="breeding-path">
             {% for data in path_data %}
-            <li>
                 {% if data.node_type == "Pokemon" %}
-                    <h3>
-                        <a href="/pokemons/{{ data.id }}">
-                        <span class="pokemon-number"># {{ data.num }}</span>:
-                        <span class="pokemon-name">{{ data.name }}</span>
-                        </a>
-                    </h3>
+                    <div class="pokemon-node">
+                        <div class="pokemon-stats">
+                            <a href="/pokemons/{{ data.id }}">
+                                <span class="pokemon-number"># {{ data.num }}</span>:
+                                <span class="pokemon-name">{{ data.name }}</span>
+                            </a>                        
                             <p><span class="stat-label">Peso:</span> <span class="stat-value">{{ data.weightkg }} kg</span></p>
                             <p><span class="stat-label">Altura:</span> <span class="stat-value">{{ data.heightm }} m</span></p>
                             <p><span class="stat-label">Ratio Macho:</span> <span class="stat-value">{{ data.male_ratio }}</span></p>
                             <p><span class="stat-label">Ratio Hembra:</span> <span class="stat-value">{{ data.female_ratio }}</span></p>
-                            {% else %}
-                            <h3>Grupo Huevo:
-                                <span class="pokemon-name">{{ data.name }}</span>
-                            </h3>
-                            {% endif %}
-                        </li>
+                        </div>
+                    </div>
+                {% else %}                    
+                <div class="egg-group-node">
+                        <span class="egg-group-label">Grupo Huevo:</span>
+                        <span class="pokemon-name">{{ data.name }}</span>
+                    </div>
+                {% endif %}
+                  {% if not loop.last %}
+                    <div class="breeding-arrow">→</div>
+                {% endif %}
             {% endfor %}
-        </ul>
-    </nav>
+        </div>
     <div class="button-container">
         <p><a href="/shortest_path">Calcular otra ruta Pokémon</a></p>
     </div>

@@ -269,12 +269,6 @@ def cadena_cria(poke_id, move_id):
             continue
     
     padres.sort(key=lambda x: len(x["path"]))
-
-    for p in padres:
-        print(p)
-        print("------------------")
-    
-    print(len(padres), "posibles padres encontrados")
     
     return padres
         
