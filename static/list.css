@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: var(--bg-body-mandarin);
+    background-color: var(--bg-body-orange-mandarin);
     color: var(--text-white-alt);
     font-family: 'Orbitron', sans-serif;
     min-height: 100vh;
@@ -113,7 +113,7 @@ select option {
 
 input[type="submit"] {
     width: 100%;
-    background: var(--bg-body-mandarin);
+    background: var(--bg-body-orange-mandarin);
     color: var(--text-white);
     border: none;
     padding: 18px 30px;
@@ -159,6 +159,7 @@ ul {
 
 li {
     background: var(--gradient-body);
+    color: var(--text-black);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 15px 30px var(--shadow-black),
@@ -175,7 +176,7 @@ li::before {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-red-item-top);
+    background: var(--bg-gray-dark);
     transform: translateX(-100%);
     transition: transform 0.5s ease;
 }
@@ -287,6 +288,22 @@ li p strong {
     border-radius: 50%;
 }
 
+.two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    justify-items: center;
+}
+
+.content {
+    display: block;
+}
+
+
 @media (max-width: 768px) {
     body {
         padding: 20px 15px;
@@ -311,4 +328,6 @@ li p strong {
     li h3 {
         font-size: 14px;
     }
+
+    
 }

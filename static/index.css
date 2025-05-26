@@ -3,7 +3,7 @@
 
 body {
     padding: 25px;
-    background: var(--bg-body-mandarin);
+    background: var(--bg-body-yellow);
     color: var(--text-dark-alt);
     font-size: 16px;
     font-family: 'Arial', sans-serif;
@@ -92,7 +92,7 @@ a {
     display: block;
     padding: 25px 12px;
     font-size: larger;
-    background: var(--bg-body-mandarin);
+    background: var(--bg-body-yellow);
     color: var(--text-white);
     text-decoration: none;
     border-radius: 30px;

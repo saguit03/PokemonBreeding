@@ -2,7 +2,7 @@
 
 body {
     padding: 25px;
-    background: var(--bg-body-mandarin);
+    background: var(--bg-body-yellow);
     color: var(--text-dark-alt);
     font-size: 16px;
     font-family: 'Arial', sans-serif;
@@ -289,13 +289,13 @@ button[type="submit"]:hover {
 
 .pokemon-node {
     background: var(--gradient-shine);
-    color: var(--bg-body-mandarin);
+    color: var(--bg-body-yellow);
     padding: 12px 18px;
     font-weight: bold;
     box-shadow: 0 4px 12px var(--shadow-blue);
     transition: all 0.3s ease;
     display: inline-block;
-    border: 5px solid var(--bg-body-mandarin);
+    border: 5px solid var(--bg-body-yellow);
     border-radius: 15px 50px;
 }
 
@@ -329,7 +329,7 @@ button[type="submit"]:hover {
 }
 
 .egg-group-node {
-    background: var(--bg-body-mandarin);
+    background: var(--bg-body-yellow);
     color: black;
     padding: 10px 16px;
     border-radius: 20px;

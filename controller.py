@@ -116,7 +116,7 @@ def render_pokemon_por_nombre(request):
     if not pokename:
         return Response("Nombre de Pokémon no proporcionado", status=400)
     pokemons = get_pokemon_by_name(pokename)
-    return render_template('pokemons.html', filtro="de nombre", pokemons=pokemons, selected_filter=pokename)
+    return render_template('pokeresult.html', filtro="de nombre", pokemons=pokemons, selected_filter=pokename)
 
 
 def render_pokemon_por_movimiento(request):
@@ -124,7 +124,7 @@ def render_pokemon_por_movimiento(request):
     if not movename:
         return Response("Movimiento Pokémon no proporcionado", status=400)
     pokemons = get_pokemon_that_learn_movement(movename)
-    return render_template('pokemons.html', filtro="que aprenden el movimiento", pokemons=pokemons,
+    return render_template('pokeresult.html', filtro="que aprenden el movimiento", pokemons=pokemons,
                            selected_filter=movename)
 
 
@@ -158,5 +158,7 @@ def render_cadena_form():
 def render_cadena_data(request):
     origen = request.form.get('source_id')
     destino = request.form.get('target_id')
+    pokemons = get_all_pokemons()
+    movements = get_all_movements()
     posibles_padres = cadena_cria(poke_id=origen, move_id=destino)
-    return render_template('cadena_cria.html', posibles_padres=posibles_padres, origen=origen, destino=destino)
+    return render_template('cadena_cria.html',  pokemons=pokemons, movements=movements, posibles_padres=posibles_padres, origen=origen, destino=destino)
